@@ -1,2 +1,0 @@
-# elliptips
-My blog
