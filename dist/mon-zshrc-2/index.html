@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Mon .zshrc</title>
+    <meta name="description" content="Aujourd’hui, je vous propose mon .zshrc que je viens tout juste de réécrire, ce qui est toujours utile, dans le cas ou vous n’auriez pas envie de vous encomb...">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/mon-zshrc-2/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Mon .zshrc</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2011-08-02T02:57:56+02:00" itemprop="datePublished">publié le 02/08/2011</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+2 mins
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p>Aujourd’hui, je vous propose mon .zshrc que je viens tout juste de réécrire, ce qui est toujours utile, dans le cas ou vous n’auriez pas envie de vous encombrer de cette formalité. Mais avant ça, petite piqûre de rappel pour les non initiés.</p>
+
+<p> </p>
+
+<p style="text-align: center;">
+  <a href="http://elliptips.info/wp-content/uploads/2011/08/Capture-d_ecran-2011-08-02-a-04.36.10.jpg"><img class=" wp-image-721 aligncenter" title="zshrc personnalisé" alt="Capture decran 2011 08 02 a 04.36.10 300x83 Mon .zshrc " src="http://elliptips.info/wp-content/uploads/2011/08/Capture-decran-2011-08-02-a-04.36.10-300x83.jpg" /></a>
+</p>
+
+<p>#</p>
+
+<h1 id="quest-ce-que-zsh-">Qu’est ce que zsh ?</h1>
+
+<p>Zsh est un shell UNIX, au même titre que bash, ksh ou tcsh dont le rôle est d’exécuter les commandes entrées par l’utilisateur. Zsh est hautement configurable et personnalisable, notamment via le fichier .zshrc.</p>
+
+<h1 id="pourquoi-devrais-je-utiliser-zsh-">Pourquoi devrais-je utiliser zsh ?</h1>
+
+<p>En ce qui me concerne, je l’ai toujours utilisé (que ce soit sous os x ou linux) donc je ne sais pas si d’autres shells tel que bash sont aussi pratiques, mais je dois avouer que la complétion est vraiment sympathique, comme par exemple le fait de compléter les arguments d’une commande, de lister les processus après un kill ou de pouvoir compléter une liste de fichiers via scp. Il existe aussi une fonctionnalité appelée globbing permettant de faire des recherches de manière simplifiée :</p>
+
+<p>par exemple</p>
+
+<pre class="brush:shell">ls *(sh|py)</pre>
+
+<p class="brush:shell">
+  affichera tout les fichiers se terminant par sh ou py
+</p>
+
+<p class="brush:shell">
+  De plus, le prompt est personnalisable à souhait et les options sont nombreuses. Bref, le mieux est encore de l’essayer.
+</p>
+
+<h1 id="installation-brushshell">Installation {.brush:shell}</h1>
+
+<h2 id="sous-linux">Sous linux</h2>
+
+<p>On commence par l’installer si ça n’est pas déjà fait (adaptez à votre gestionnaire de paquets):</p>
+
+<p class="brush:shell">
+  sudo apt-get install zsh
+</p>
+
+<p class="brush:shell">
+  Puis on lance la commande permettant de changer de shell:
+</p>
+
+<p class="brush:shell">
+  chsh -s /bin/zsh
+</p>
+
+<h2 id="sous-mac-os-x-brushshell">Sous Mac os X {.brush:shell}</h2>
+
+<p>zsh est présent de base, il suffit juste de l’activer :</p>
+
+<p class="brush:shell">
+  chsh -s /bin/zsh
+</p>
+
+<p class="brush:shell">
+  Si vous êtes impatient, vous pouvez l’utiliser en tapant « zsh » dans l’invite de commandes. Sinon, le changement sera effectif au prochain redémarrage.
+</p>
+
+<h1 id="configuration-et-personnalisation">Configuration et personnalisation</h1>
+
+<p>La configuration est à placer dans le fichier .zshrc, à l’intérieur de votre répertoire home.</p>
+
+<p>Création/édition du fichier :</p>
+
+<pre class="brush:shell">vim ~/.zshrc</pre>
+
+<p>Par exemple, voici le mien, que j’utilise sous mac os X mais le fonctionnement sous linux est identique (j’ai piqué pas mal de trucs à droite à gauche, en est réécris certains, bref  n’hésitez pas à faire pareil pour un zsh qui vous ressemble 🙂 )</p>
+
+<p style="text-align: left;">
+  <span style="font-family: Verdana, Arial, Helvetica, sans-serif;"><span class="Apple-style-span" style="font-size: 11px; line-height: normal;"><span class="removed_link" title="https://github.com/Fendtwick/MyZshrc">Télécharger mon zshrc</span></span></span>
+</p>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

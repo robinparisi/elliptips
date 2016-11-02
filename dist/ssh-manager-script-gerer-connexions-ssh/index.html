@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>SSH-Manager : un script pour gérer vos connexions SSH</title>
+    <meta name="description" content="Si vous avez comme moi l’habitude de switcher entre plusieurs serveurs SSH, vous devez probablement avoir mis en place une petite routine pour gérer toutes c...">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/ssh-manager-script-gerer-connexions-ssh/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">SSH-Manager : un script pour gérer vos connexions SSH</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2013-02-25T23:54:53+01:00" itemprop="datePublished">publié le 25/02/2013</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+1 min
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p>Si vous avez comme moi l’habitude de <strong>switcher entre plusieurs serveurs SSH</strong>, vous devez probablement avoir mis en place une petite routine pour gérer toutes ces connexions. Personnellement, j’avais pris l’habitude d’utiliser de simples alias placés dans le fichier de configuration de mon Shell, mais au fur et à mesure que le nombre de serveurs à gérer augmentait, il devenait difficile pour moi de m’y retrouver.</p>
+
+<p>Je me suis alors mis en quête d’un petit soft qui serait capable de gérer l’ensemble de mes connexions simplement et je suis tombé sur un <strong>script bash</strong> écrit par Errol Byrd (j’ai malheureusement perdu le lien initial) que j’ai modifié à ma sauce.</p>
+
+<p><strong>SSH-Manager</strong> permet :</p>
+
+<ul>
+  <li><span style="line-height: 13px;">d’ajouter/supprimer des serveurs</span></li>
+  <li>de se connecter rapidement à un serveur en utilisant un système d’alias</li>
+  <li>de garder un oeil sur la liste des serveurs disponibles</li>
+  <li>de vérifier l’état des serveurs (simple ping)</li>
+  <li>d’exporter sa configuration pour la retrouver sur un autre ordinateur (le script utilise un fichier nommé ssh_servers placé à la racine de votre répertoire personnel)</li>
+</ul>
+
+<p><a href="http://elliptips.info/wp-content/uploads/2013/02/ssh-manager.png"><img class="aligncenter size-full wp-image-1936" alt="ssh manager SSH Manager : un script pour gérer vos connexions SSH" src="http://elliptips.info/wp-content/uploads/2013/02/ssh-manager.png" width="764" height="576" srcset="http://elliptips.info/wp-content/uploads/2013/02/ssh-manager.png 764w, http://elliptips.info/wp-content/uploads/2013/02/ssh-manager-300x226.png 300w" sizes="(max-width: 764px) 100vw, 764px" title="SSH Manager : un script pour gérer vos connexions SSH photo" /></a></p>
+
+<p>Comme c’est un script bash, il fonctionne bien entendu sur Linux et OSX.</p>
+
+<h2 id="installation-du-script-ssh-manager">Installation du script ssh-manager</h2>
+
+<p>On commence par récupérer le script sur <a href="https://github.com/robinparisi/ssh-manager" title="SSH-Manager sur Github">Github</a> puis on le rend exécutable.</p>
+
+<pre class="lang:sh decode:true">cd ~
+wget --no-check-certificate https://raw.github.com/robinparisi/ssh-manager/master/ssh-manager.sh
+chmod +x ssh-manager.sh
+./ssh-manager.sh</pre>
+
+<p>Pour plus de commodité, vous pouvez créer un alias vers le script :</p>
+
+<pre class="lang:sh decode:true">alias sshs="~/ssh-manager.sh</pre>
+
+<h2 id="utilisation-du-script-ssh-manager">Utilisation du script ssh-manager</h2>
+
+<p>Ajouter un serveur :</p>
+
+<pre class="lang:sh decode:true">sshs add &lt;alias&gt;:&lt;user&gt;:&lt;host&gt;:[port]</pre>
+
+<p>Supprimer un serveur :</p>
+
+<pre class="lang:sh decode:true">sshs del &lt;alias&gt;</pre>
+
+<p>Se connecter à un serveur :</p>
+
+<pre class="lang:sh decode:true">sshs cc &lt;alias&gt;</pre>
+
+<p>Voir la liste des serveurs :</p>
+
+<pre class="lang:sh decode:true">sshs</pre>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

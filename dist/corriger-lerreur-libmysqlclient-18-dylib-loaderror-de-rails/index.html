@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Corriger l’erreur libmysqlclient.18.dylib (LoadError) de Rails</title>
+    <meta name="description" content="À force de ne lire que du bien de Ruby et en particulier du framework Ruby on Rails, j’ai finalement décidé de m’y mettre. Je dois avouer que l’installation ...">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/corriger-lerreur-libmysqlclient-18-dylib-loaderror-de-rails/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Corriger l’erreur libmysqlclient.18.dylib (LoadError) de Rails</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2013-01-28T16:53:27+01:00" itemprop="datePublished">publié le 28/01/2013</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+1 min
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p>À force de ne lire que du bien de Ruby et en particulier du framework Ruby on Rails, j’ai finalement décidé de m’y mettre. Je dois avouer que l’installation est enfantine et j’apprécie tout particulièrement le système de gems (surtout avec bundler qui permet de maintenir l’environnement d’une application en une seule commande).</p>
+
+<p>J’ai cependant eu un petit problème au lancement du serveur (rails server) sous OSX à cause de la gem mysql2. Voici comment la résoudre simplement :</p>
+
+<p>Si vous obtenez l’erreur suivante en lançant le serveur de votre application :</p>
+
+<pre class="lang:sh mark:1 decode:true">/Library/Ruby/Gems/1.8/gems/mysql2-0.2.7/lib/mysql2/mysql2.bundle: dlopen(/Library/Ruby/Gems/1.8/gems/mysql2-0.2.7/lib/mysql2/mysql2.bundle, 9): Library not loaded: libmysqlclient.18.dylib (LoadError)
+  Referenced from: /Library/Ruby/Gems/1.8/gems/mysql2-0.2.7/lib/mysql2/mysql2.bundle
+  Reason: image not found - /Library/Ruby/Gems/1.8/gems/mysql2-0.2.7/lib/mysql2/mysql2.bundle
+	from /Library/Ruby/Gems/1.8/gems/mysql2-0.2.7/lib/mysql2.rb:8
+	from /Library/Ruby/Gems/1.8/gems/bundler-1.2.3/lib/bundler/runtime.rb:68:in `require'
+	from /Library/Ruby/Gems/1.8/gems/bundler-1.2.3/lib/bundler/runtime.rb:68:in `require'
+	from /Library/Ruby/Gems/1.8/gems/bundler-1.2.3/lib/bundler/runtime.rb:66:in `each'
+	from /Library/Ruby/Gems/1.8/gems/bundler-1.2.3/lib/bundler/runtime.rb:66:in `require'
+	from /Library/Ruby/Gems/1.8/gems/bundler-1.2.3/lib/bundler/runtime.rb:55:in `each'
+	from /Library/Ruby/Gems/1.8/gems/bundler-1.2.3/lib/bundler/runtime.rb:55:in `require'
+	from /Library/Ruby/Gems/1.8/gems/bundler-1.2.3/lib/bundler.rb:128:in `require'
+	from /Users/robin/RubymineProjects/comebacksoon/config/application.rb:7
+	from /Users/robin/.gem/ruby/1.8/gems/railties-3.2.11/lib/rails/commands.rb:53:in `require'
+	from /Users/robin/.gem/ruby/1.8/gems/railties-3.2.11/lib/rails/commands.rb:53
+	from /Users/robin/.gem/ruby/1.8/gems/railties-3.2.11/lib/rails/commands.rb:50:in `tap'
+	from /Users/robin/.gem/ruby/1.8/gems/railties-3.2.11/lib/rails/commands.rb:50
+	from script/rails:6:in `require'
+	from script/rails:6</pre>
+
+<p>Il suffit de créer un lien symbolique de la lib mysql vers /usr/lib/ :</p>
+
+<pre class="lang:default decode:true">sudo ln -s /usr/local/mysql/lib/libmysqlclient.18.dylib /usr/lib/libmysqlclient.18.dylib</pre>
+
+<p>Et le tour est joué.</p>
+
+<p>Si vous souhaitez vous lancer dans le développement d’applications rails, je ne saurais que trop vous conseiller l’excellent <a href="http://www.jetbrains.com/ruby/" title="RubyMine IDE">IDE RubyMine</a> qui vous assistera et vous guidera énormément en tant que débutant (il est possible d’obtenir une license si vous être dans une école d’informatique).</p>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

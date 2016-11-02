@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Internet Explorer ne peut pas afficher cette page web</title>
+    <meta name="description" content="J’ai eu à dépanner cet après midi un PC sous Windows Vista (arf) avec lequel il était impossible de se connecter à internet, ou plutôt d’afficher une page we...">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/internet-explorer-ne-peut-pas-afficher-cette-page-web/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Internet Explorer ne peut pas afficher cette page web</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2013-03-16T00:00:30+01:00" itemprop="datePublished">publié le 16/03/2013</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+2 mins
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p>J’ai eu à dépanner cet après midi un PC sous <strong>Windows Vista</strong> (arf) avec lequel il était impossible de se connecter à internet, ou plutôt d’afficher une page web (Internet explorer ne peut pas afficher cette page web<strong>)</strong>.</p>
+
+<p>Il était cependant possible de pinger un hôte (ex: ping google.fr)</p>
+
+<h2 id="problme-d8217affichage-des-pages-web">Problème d’affichage des pages web</h2>
+
+<p>Internet Explorer affichait donc l’erreur suivante : <strong>Internet explorer ne peut pas afficher cette page web</strong></p>
+
+<p>Quant à Chrome et Firefox, ils me notifiaient d’un magnifique message : <strong>Erreur 102 (net::ERR_CONNECTION_REFUSED) Le serveur a refusé la connexion</strong></p>
+
+<p>Pour la petite histoire, le problème est arrivé du jour au lendemain, sans qu’aucun logiciel n’ait été installé ou mise à jour faite, aussi bien en WIFI que par câble ethernet. Le routeur, lui, fonctionnait correctement.</p>
+
+<p>A ce moment, processus habituel pensant que l’une des manipulations allait régler l’affaire :</p>
+
+<ul>
+  <li><span style="line-height: 13px;">vérification des paramètres du proxy (le plus probable dans ce cas)</span></li>
+  <li>vérification des paramètres IP</li>
+  <li>tentative avec un navigateur standalone</li>
+  <li>vérification des paramètres de la carte réseau et réinitialisation de celle-ci</li>
+  <li>vérification du par-feu</li>
+  <li>vérification de l’antivirus</li>
+  <li>réinitialisation du protocole TCP/IP via la commande netsh</li>
+  <li>vérification que le port 80 n’est pas bloqué par un processus</li>
+  <li>et pour finir, tentative de désinfection à l’aide d’un antivirus standalone</li>
+</ul>
+
+<p>A partir de là, je vous laisse imaginer le nombre incalculable de pages Google que je me suis farci pour avoir la chance de lire de nombreux “Bah formate et ça remarchera” (haaa les forums de Comment ça Marche, quel plaisir d’y chercher une solution :)).</p>
+
+<p>Le problème semblait pourtant être récurent sur tout type de système (<strong>XP, Vista ou Seven</strong>). Au final, je suis tombé sur un post anglais ou la personne expliquait que Norton avait l’habitude de causer ce type de problème.</p>
+
+<p>Il n’y avait pourtant aucune trace de celui-ci dans l’ordinateur mais dans le doute, j’ai finalement lancé <strong>Norton Removal Tool </strong>et le résultat ne s’est pas fait attendre : la navigation Internet a de nouveau été possible.</p>
+
+<h2 id="corriger-le-problme">Corriger le problème</h2>
+
+<p>Si toutes les solutions énoncées précédemment n’ont pas marché pour vous, il suffit donc de télécharger <a href="https://support.norton.com/sp/en/us/home/current/solutions/kb20080710133834EN_EndUserProfile_en_us">Norton Removal Tool</a>, un petit utilitaire fourni par la société qui édite Norton capable de désinstaller le logiciel antivirus proprement.</p>
+
+<p style="text-align: center;">
+  <img class="aligncenter size-full wp-image-2036" alt="NortonRemovalTool Internet Explorer ne peut pas afficher cette page web" src="http://elliptips.info/wp-content/uploads/2013/03/NortonRemovalTool.png" width="555" height="464" srcset="http://elliptips.info/wp-content/uploads/2013/03/NortonRemovalTool.png 555w, http://elliptips.info/wp-content/uploads/2013/03/NortonRemovalTool-300x250.png 300w" sizes="(max-width: 555px) 100vw, 555px" title="Internet Explorer ne peut pas afficher cette page web photo" />
+</p>
+
+<ol>
+  <li>Commencez par <a href="ftp://ftp.symantec.com/public/english_us_canada/removal_tools/Norton_Removal_Tool.exe">télécharger le logiciel (lien direct)</a>.</li>
+  <li>Lancez-le</li>
+  <li>Suivez les instructions
+    <ol>
+      <li>acceptez la licence</li>
+      <li>cliquez sur suivant</li>
+      <li>entrez le captcha</li>
+      <li>faire suivant pour lancer la désinstallation</li>
+    </ol>
+  </li>
+  <li>Redémarrez votre ordinateur</li>
+</ol>
+
+<p>Voilà pour la solution, en espérant que cela pourra en aider certains.</p>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

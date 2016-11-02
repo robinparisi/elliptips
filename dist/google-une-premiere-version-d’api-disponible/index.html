@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Google+ : une première version d’API disponible</title>
+    <meta name="description" content="Google vient tout juste de lancer une première version de son API pour le réseau social Google+, et en a d’ailleurs profité pour accompagner ce lancement ave...">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/google-une-premiere-version-d%E2%80%99api-disponible/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Google+ : une première version d’API disponible</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2011-09-16T00:35:07+02:00" itemprop="datePublished">publié le 16/09/2011</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+1 min
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p>Google vient tout juste de lancer une première version de son API pour le réseau social Google+, et en a d’ailleurs profité pour accompagner ce lancement avec un tout nouveau <a href="https://developers.google.com/+/api/" title="Nouveau site Google pour les développeurs">site</a> dédié aux développeurs.</p>
+
+<p>Pour l’instant, celle-ci permet principalement un accès en lecture seule à des informations provenant du profil publique d’une personne (nom, prénom, anniversaire, etc) et reste donc très limitée, mais cela reste une aubaine pour tous les développeurs de part le monde qui rêvaient de se faire les dents dessus.</p>
+
+<p>En ce qui concerne les détails techniques, l’API est de type <a href="http://fr.wikipedia.org/wiki/Representational_State_Transfer" title="Article Wikipedia">RESTful</a> et renvoie les données sous forme JSON. Bien entendu, pour l’utiliser, vous aurez besoin de demander <a href="https://developers.google.com/+/api/oauth#apikey" title="Obtenir une clé d’api google+">votre clé d’API</a>.</p>
+
+<p>Sachez aussi que Google dispose de nombreuses bibliothèques Open Sources histoire d’effectuer vos requêtes, notemment dans les langages suivants :</p>
+
+<ul>
+  <li> <a href="http://code.google.com/p/google-api-java-client/">Java</a></li>
+  <li><a href="http://code.google.com/p/gwt-google-apis/">GWT</a></li>
+  <li><a href="http://code.google.com/p/google-api-python-client/">Python</a></li>
+  <li><a href="http://code.google.com/p/google-api-ruby-client/">Ruby</a></li>
+  <li><a href="http://code.google.com/p/google-api-php-client/">PHP</a></li>
+  <li><a href="http://code.google.com/p/google-api-objectivec-client/">Obj-C</a></li>
+  <li><a href="http://code.google.com/p/google-api-dotnet-client/">.NET</a></li>
+</ul>
+
+<p><span style="text-decoration: underline;">Un exemple d’appel :</span></p>
+
+<pre class="brush:plain">GET https://www.googleapis.com/plus/v1/people/108189587050871927619?key=yourAPIKey</pre>
+
+<p><span style="text-decoration: underline;">Un exemple de réponse :</span></p>
+
+<pre class="brush:plain">{
+ "kind": "plus#person",
+ "id": "108189587050871927619",
+ "displayName": "Chris Chabot",
+ "image": {
+  "url": "https://lh5.googleusercontent.com/-cQNLOQzkGpE/AAAAAAAAAAI/AAAAAAAAEjo/M9_pXL-ra4Q/photo.jpg"
+ },
+ "organizations": [
+  {
+   "name": "Google+ Developer Relations",
+   "title": "Developer Advocate &amp; Manager",
+   "type": "work"
+  }
+ ]
+}</pre>
+
+<p class="brush:plain">
+  A vos claviers 😉
+</p>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://elliptips.info/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.0">Jekyll</generator><link href="http://elliptips.info/feed.xml" rel="self" type="application/atom+xml" /><link href="http://elliptips.info/" rel="alternate" type="text/html" /><updated>2016-11-02T03:29:36+01:00</updated><id>http://elliptips.info//</id><title type="html">Elliptips</title><subtitle>Web, Linux, OSX, astuces et tutos...</subtitle><entry><title type="html">Fontfamily.io : vérifier la présence d’une fonte sur différents OS</title><link href="http://elliptips.info/fontfamily-io-verifier-presence-dune-fonte-differents-os/" rel="alternate" type="text/html" title="Fontfamily.io : vérifier la présence d'une fonte sur différents OS" /><published>2014-10-05T18:50:46+02:00</published><updated>2014-10-05T18:50:46+02:00</updated><id>http://elliptips.info/fontfamily-io-verifier-presence-dune-fonte-differents-os</id><content type="html" xml:base="http://elliptips.info/fontfamily-io-verifier-presence-dune-fonte-differents-os/">&lt;p&gt;Vous le savez probablement, chaque système d’exploitation dispose de son lot de &lt;strong&gt;fontes installées par défaut&lt;/strong&gt; qu’il est possible d’utiliser directement au sein d’une page Web. Certes, le choix ne sera pas aussi fourni que si vous décidez de passer par un service externe tel que Google Fonts ou encore d’embarquer une fonte “non standard” via la propriété @font-face, mais vous aurez le mérite d’économiser une requête et d’être assuré que le rendu sera bon (ce qui n’est pas toujours le cas avec une fonte non standard).&lt;/p&gt;
+
+&lt;p&gt;Là où ça se complique, c’est lorsqu’il faut s’assurer que la fonte que l’on souhaite utiliser est effectivement présente par défaut sur une majorité d’OS et dans le cas contraire, de trouver une version proche qui pourra la remplacer.&lt;/p&gt;
+
+&lt;p&gt;C’est justement ce que propose de faire le service &lt;a href=&quot;http://fontfamily.io/&quot; title=&quot;Font Family Reunion&quot;&gt;fontfamily.io&lt;/a&gt;, qui pourrait être vu comme le “caniuse” des fontes par défaut. Le site regroupe les principaux OS du marché et vous proposera aussi la version alternative ou installée par défaut de la fonte que vous aurez choisie. Bref, un petit service bien sympa à mettre en favoris. Et si vous cherchez des ensembles de fontes à utiliser sur vos sites, n’hésitez pas à faire un tour du côté de &lt;a href=&quot;http://cssfontstack.com/&quot; title=&quot;CSS Font Stack&quot;&gt;cssfontstack&lt;/a&gt; 🙂&lt;/p&gt;
+
+&lt;p class=&quot;txtcenter&quot;&gt;
+  &lt;img class=&quot;size-large wp-image-2465&quot; src=&quot;http://elliptips.info/wp-content/uploads/2014/10/fontfamily1-800x562.png&quot; alt=&quot;fontfamily1 800x562 Fontfamily.io : vérifier la présence dune fonte sur différents OS&quot; srcset=&quot;http://elliptips.info/wp-content/uploads/2014/10/fontfamily1-800x562.png 800w, http://elliptips.info/wp-content/uploads/2014/10/fontfamily1.png 884w&quot; sizes=&quot;(max-width: 800px) 100vw, 800px&quot; title=&quot;Fontfamily.io : vérifier la présence dune fonte sur différents OS photo&quot; /&gt;
+&lt;/p&gt;</content><author><name>Robin</name></author><summary type="html">Vous le savez probablement, chaque système d’exploitation dispose de son lot de fontes installées par défaut qu’il est possible d’utiliser directement au sein d’une page Web. Certes, le choix ne sera pas aussi fourni que si vous décidez de passer par un service externe tel que Google Fonts ou encore d’embarquer une fonte “non standard” via la propriété @font-face, mais vous aurez le mérite d’économiser une requête et d’être assuré que le rendu sera bon (ce qui n’est pas toujours le cas avec une fonte non standard).</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://elliptips.info/wp-content/uploads/2014/10/fontfamily.png" /></entry><entry><title type="html">Grunt-contrib-imagemin : erreur de compilation sur OSX Mavericks (pngquant)</title><link href="http://elliptips.info/grunt-contrib-imagemin-erreur-de-compilation-sur-osx-mavericks-pngquant/" rel="alternate" type="text/html" title="Grunt-contrib-imagemin : erreur de compilation sur OSX Mavericks (pngquant)" /><published>2014-07-28T16:58:54+02:00</published><updated>2014-07-28T16:58:54+02:00</updated><id>http://elliptips.info/grunt-contrib-imagemin-erreur-de-compilation-sur-osx-mavericks-pngquant</id><content type="html" xml:base="http://elliptips.info/grunt-contrib-imagemin-erreur-de-compilation-sur-osx-mavericks-pngquant/">&lt;p&gt;Si vous utilisez &lt;a href=&quot;http://gruntjs.com/&quot;&gt;Grunt&lt;/a&gt; et plus précisément le module &lt;a href=&quot;https://github.com/gruntjs/grunt-contrib-imagemin&quot;&gt;grunt-contrib-imagemin&lt;/a&gt; afin de compresser vos images à la volée, vous vous êtes peut être rendu compte que l’installation pose problème sur Mavericks (la dernière version d’OSX).&lt;/p&gt;
+
+&lt;p&gt;En effet, le module utilise plusieurs libs de compression dont l’excellent &lt;a href=&quot;http://pngquant.org/&quot;&gt;&lt;strong&gt;pngquant&lt;/strong&gt;&lt;/a&gt; qui n’est malheureusement plus distribué avec le système.&lt;/p&gt;
+
+&lt;p&gt;Aussi, l’installation via npm vous gratifiera du magnifique message d’erreur suivant :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:sh decode:true&quot;&gt;&amp;gt; pngquant-bin@0.3.1 postinstall /****/node_modules/grunt-contrib-imagemin/node_modules/imagemin/node_modules/imagemin-pngquant/node_modules/pngquant-bin
+&amp;gt; node index.js
+
+✗ pre-build test failed, compiling from source...
+libpng-dev is installed
+
+{ [Error: Command failed: In file included from pngquant.c:59:
+./rwpng.h:35:10: fatal error: 'png.h' file not found
+#include &quot;png.h&quot;    /* libpng header; includes zlib.h */
+         ^
+1 error generated.
+make: *** [pngquant.o] Error 1
+] killed: false, code: 2, signal: null }&lt;/pre&gt;
+
+&lt;p&gt;Pour corriger cela, rien de plus simple, commencez par supprimez le dossier node_modules de votre projet :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:sh decode:true&quot;&gt;rm -rf node_modules&lt;/pre&gt;
+
+&lt;p&gt;Installez ensuite pngquant sur votre système (si vous n’avez pas brew, commencer par l’installer) :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:default decode:true&quot;&gt;brew install libpng&lt;/pre&gt;
+
+&lt;p&gt;Puis on relance l’installation des modules :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:sh decode:true&quot;&gt;npm install&lt;/pre&gt;
+
+&lt;p&gt;Résultat :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:sh decode:true&quot;&gt;✓ pre-build test passed successfully
+ 
+&amp;gt; pngquant-bin@0.3.1 postinstall /****/node_modules/grunt-contrib-imagemin/node_modules/imagemin/node_modules/imagemin-pngquant/node_modules/pngquant-bin
+&amp;gt; node index.js&lt;/pre&gt;</content><author><name>Robin</name></author><summary type="html">Si vous utilisez Grunt et plus précisément le module grunt-contrib-imagemin afin de compresser vos images à la volée, vous vous êtes peut être rendu compte que l’installation pose problème sur Mavericks (la dernière version d’OSX).</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://elliptips.info/wp-content/uploads/2014/07/pngquant-logo.png" /></entry><entry><title type="html">Fixer le problème de locales sur Digital Ocean</title><link href="http://elliptips.info/fixer-probleme-locales-digital-ocean/" rel="alternate" type="text/html" title="Fixer le problème de locales sur Digital Ocean" /><published>2014-06-01T04:50:24+02:00</published><updated>2014-06-01T04:50:24+02:00</updated><id>http://elliptips.info/fixer-probleme-locales-digital-ocean</id><content type="html" xml:base="http://elliptips.info/fixer-probleme-locales-digital-ocean/">&lt;p&gt;Suite à l’installation d’un système Debian ou Ubuntu, il se peut que les locales ne soient pas correctement configurées. C’est notamment le cas chez Digital Ocean et vous vous retrouverez alors avec le message d’avertissement suivant en tentant de mettre à jour le système :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:sh decode:true&quot;&gt;Can't set locale; make sure $LC_* and $LANG are correct!
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = &quot;en_US:en&quot;,
+	LC_ALL = (unset),
+	LC_CTYPE = &quot;fr_FR.UTF-8&quot;,
+	LANG = &quot;en_US.UTF-8&quot;
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale (&quot;C&quot;).
+locale: Cannot set LC_CTYPE to default locale: No such file or directory
+locale: Cannot set LC_ALL to default locale: No such file or directory&lt;/pre&gt;
+
+&lt;p&gt;Pour corriger le problème, il suffit de re-configurer les locales à l’aide de la commande suivante (à lancer en root) :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:default decode:true&quot;&gt;dpkg-reconfigure locales&lt;/pre&gt;
+
+&lt;p&gt;Pour le français, choisissez dans la liste fr_FR.UTF-8 UTF-8 puis valider pour re-générer correctement les paramètres régionaux :&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;aligncenter size-large wp-image-2431&quot; src=&quot;http://elliptips.info/wp-content/uploads/2014/06/debian-locales-800x273.png&quot; alt=&quot;debian locales 800x273 Fixer le problème de locales sur Digital Ocean&quot; srcset=&quot;http://elliptips.info/wp-content/uploads/2014/06/debian-locales-800x273.png 800w, http://elliptips.info/wp-content/uploads/2014/06/debian-locales.png 926w&quot; sizes=&quot;(max-width: 800px) 100vw, 800px&quot; title=&quot;Fixer le problème de locales sur Digital Ocean photo&quot; /&gt;&lt;/p&gt;</content><author><name>Robin</name></author><summary type="html">Suite à l’installation d’un système Debian ou Ubuntu, il se peut que les locales ne soient pas correctement configurées. C’est notamment le cas chez Digital Ocean et vous vous retrouverez alors avec le message d’avertissement suivant en tentant de mettre à jour le système :</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://elliptips.info/wp-content/uploads/2014/06/digital-ocean.jpg" /></entry><entry><title type="html">InstantClick: accélérer la navigation sur son site web</title><link href="http://elliptips.info/instantclick-accelerer-la-navigation-de-son-site-web/" rel="alternate" type="text/html" title="InstantClick: accélérer la navigation sur son site web" /><published>2014-02-17T00:49:54+01:00</published><updated>2014-02-17T00:49:54+01:00</updated><id>http://elliptips.info/instantclick-accelerer-la-navigation-de-son-site-web</id><content type="html" xml:base="http://elliptips.info/instantclick-accelerer-la-navigation-de-son-site-web/">&lt;p&gt;&lt;a href=&quot;http://instantclick.io/&quot; title=&quot;InstantClick site&quot;&gt;InstantClick&lt;/a&gt; est une petite &lt;strong&gt;bibliothèque JavaScript&lt;/strong&gt; bien sympathique puisque celle-ci permet d’accélérer la navigation sur un site internet.&lt;/p&gt;
+
+&lt;p&gt;Pour cela, InstantClick va précharger les pages lors de la navigation en se basant sur trois types d’évènements au choix :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;au hover sur un lien&lt;/li&gt;
+  &lt;li&gt;au hover sur un lien et après un délai&lt;/li&gt;
+  &lt;li&gt;au mousedown (un lien n’est ouvert que lorsque le bouton de la souris est relâché, on gagne donc quelques millisecondes qui participent tout de même à donner cette impression de vitesse)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Si vous êtes un peu dubitatif sur le fonctionnement, je vous encourage à faire le test du clic sur la &lt;a href=&quot;http://instantclick.io/click-test.html&quot; title=&quot;IInstantClick test&quot;&gt;page suivante&lt;/a&gt;. Ainsi, on remarque que le délai écoulé entre le hover sur un lien et le clic est en général situé entre 200 et 500 ms.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;aligncenter size-full wp-image-2419&quot; alt=&quot;instant click InstantClick: accélérer la navigation sur son site web&quot; src=&quot;http://elliptips.info/wp-content/uploads/2014/02/instant-click.png&quot; title=&quot;InstantClick: accélérer la navigation sur son site web photo&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;InstantClick va alors tirer profit de ce délai pour faire une requête en utilisant &lt;a href=&quot;https://github.com/defunkt/jquery-pjax&quot; title=&quot;Découvrir pjax&quot;&gt;le combo pushState + Ajax&lt;/a&gt; (plus connu sous le nom de pjax) et propose de ce fait plusieurs avantages :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;les fichiers JS et CSS ne sont pas recompilés à chaque changement de page&lt;/li&gt;
+  &lt;li&gt;le chargement est casi imperceptible (pas de flash)&lt;/li&gt;
+  &lt;li&gt;la navigation n’est pas cassée (un point crucial dans l’expérience utilisateur)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Maintenant, si vous choisissiez d’implémenter la lib sur votre site, je vous encourage à bien réfléchir avant &lt;strong&gt;au type d’évènement que vous souhaitez utiliser&lt;/strong&gt; :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;L’évènement hover sur un site contenant énormément de liens pourrait entrainer trop de requêtes superflues vers le serveur (et donc surcharger celui-ci inutilement)&lt;/li&gt;
+  &lt;li&gt;L’évènement mousedown sera &lt;strong&gt;inefficace avec l’utilisation d’un trackpad&lt;/strong&gt;. J’ai fait le test sur mon mac, le mousedown levé par un clic au trackpad génère un délai d’environ 7 ms (contre 100 ms avec le bouton physique).&lt;/li&gt;
+  &lt;li&gt;L’évènement hover + délai semble lui être un bon compromis, à condition que le délai soit en dessous de la barre des 100 ms (sinon le mousedown lui sera préférable)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Pour finir, sachez qu’il ne vous suffira pas de charger InstantClick pour que tout se fasse comme par magie et vous aurez probablement besoin de faire quelques ajustements pour éviter le conflit avec vos autres scripts (&lt;strong&gt;notamment parce que l’évènement DOMContentLoaded ne sera pas déclenché par la lib&lt;/strong&gt;).De plus, il faut être conscient que le script permettra d’accélérer la navigation et non d’améliorer les performances globales de votre site.&lt;/p&gt;</content><author><name>Robin</name></author><summary type="html">InstantClick est une petite bibliothèque JavaScript bien sympathique puisque celle-ci permet d’accélérer la navigation sur un site internet.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://elliptips.info/wp-content/uploads/2014/02/instant-click.png" /></entry><entry><title type="html">Convertir rapidement ses images en base 64</title><link href="http://elliptips.info/convertir-rapidement-ses-images-en-base-64/" rel="alternate" type="text/html" title="Convertir rapidement ses images en base 64" /><published>2014-02-04T02:13:36+01:00</published><updated>2014-02-04T02:13:36+01:00</updated><id>http://elliptips.info/convertir-rapidement-ses-images-en-base-64</id><content type="html" xml:base="http://elliptips.info/convertir-rapidement-ses-images-en-base-64/">&lt;p&gt;Encoder ses images en base64 est une technique d’optimisation web qui permet de convertir une image en une chaîne de caractères directement exploitable par le navigateur, le but principal étant d’économiser une requête HTTP vers la ressource (puisque celle-ci est directement embarquée dans le HTML ou le CSS).&lt;/p&gt;
+
+&lt;p&gt;Revers de la médaille, cette technique génère une chaîne plus lourde que le fichier original. Il faut donc l’utiliser avec parcimonie sur de &lt;strong&gt;petites images&lt;/strong&gt; et jauger le gain en terme de performances.&lt;/p&gt;
+
+&lt;p&gt;Ainsi, même si la technique se révèle assez efficace pour une ou deux images, il faut lui préférer au-delà la technique des sprites CSS ou encore l’utilisation d’une police d’icônes (pour des icônes simples et monochromes).&lt;/p&gt;
+
+&lt;p&gt;Enfin, vous devez savoir que le navigateur IE7 ne gère pas ce format (mais ça on s’en fiche :p) et que IE8 impose une limite de 32 KB à celui-ci (mais à ce niveau, on perd l’intérêt de la chose).&lt;/p&gt;
+
+&lt;h2 id=&quot;utilisation-concrte&quot;&gt;Utilisation concrète&lt;/h2&gt;
+
+&lt;p&gt;&lt;span style=&quot;line-height: 1.5em;&quot;&gt;Un exemple dans le HTML :&lt;/span&gt;&lt;/p&gt;
+
+&lt;pre class=&quot;lang:xhtml decode:true&quot;&gt;&amp;lt;img src=&quot;data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7&quot;&amp;gt;&lt;/pre&gt;
+
+&lt;p&gt;Un exemple dans le CSS :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:css decode:true&quot;&gt;background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAIAAAAiZtkUAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAE1JREFUeNpi6dFgYmdj//nrpwAXx6+f3xkYGFj+MrN++/uPgZn1968fbOycICFhdmYGMPj+h+nrtx/MTExMEMVA8uP3n0AdvxiZAQIMABFCHYYroQd+AAAAAElFTkSuQmCC);&lt;/pre&gt;
+
+&lt;h2 id=&quot;l8217astuce-avec-openssl&quot;&gt;L’astuce avec openssl&lt;/h2&gt;
+
+&lt;p&gt;Il existe de nombreux convertisseurs en ligne capable d’effectuer cette tâche. Toutefois, sachez que vous disposez déjà des outils nécessaires et il serait donc dommage de s’en priver 🙂&lt;/p&gt;
+
+&lt;p&gt;L’astuce se situe au niveau de l’utilitaire openssl (à utiliser en ligne de commande) :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:sh decode:true&quot;&gt;openssl base64 -in mon_image.png | tr -d '\n'&lt;/pre&gt;
+
+&lt;p&gt;Ici, on convertit l’image en base64 pour ensuite rediriger le résultat vers la commande &lt;strong&gt;tr&lt;/strong&gt; qui permet de supprimer les retours chariot.&lt;/p&gt;
+
+&lt;p&gt;Pour encore plus de rapidité, il est possible de copier directement la chaîne dans votre presse-papier.&lt;/p&gt;
+
+&lt;p&gt;Sur OSX :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:default decode:true&quot;&gt;openssl base64 -in vertical_cloth.png  | tr -d '\n' | pbcopy&lt;/pre&gt;
+
+&lt;p&gt;Sur Linux (nécessite l’installation du paquet xclip) :&lt;span style=&quot;background-color: #f4f4f4;&quot;&gt;&lt;br /&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;pre class=&quot;lang:sh decode:true&quot;&gt;openssl base64 -in vertical_cloth.png  | tr -d '\n' | xclip&lt;/pre&gt;
+
+&lt;p&gt;bref, une technique à utiliser avec modération mais qui peut parfois s’avérer utile.&lt;/p&gt;</content><author><name>Robin</name></author><summary type="html">Encoder ses images en base64 est une technique d’optimisation web qui permet de convertir une image en une chaîne de caractères directement exploitable par le navigateur, le but principal étant d’économiser une requête HTTP vers la ressource (puisque celle-ci est directement embarquée dans le HTML ou le CSS).</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://elliptips.info/wp-content/uploads/2014/02/base64.png" /></entry><entry><title type="html">Clmtrackr : suivre les expressions d’un visage en JavaScript</title><link href="http://elliptips.info/clmtrackr-suivre-les-expressions-dun-visage-en-javascript/" rel="alternate" type="text/html" title="Clmtrackr : suivre les expressions d'un visage en JavaScript" /><published>2014-01-27T04:19:19+01:00</published><updated>2014-01-27T04:19:19+01:00</updated><id>http://elliptips.info/clmtrackr-suivre-les-expressions-dun-visage-en-javascript</id><content type="html" xml:base="http://elliptips.info/clmtrackr-suivre-les-expressions-dun-visage-en-javascript/">&lt;p&gt;&lt;a href=&quot;https://github.com/auduno/clmtrackr&quot;&gt;Clmtrackr&lt;/a&gt; est une bibliothèque JavaScript qui permet de suivre de manière très précise les expressions d’un visage. L’outil, basé sur un algorithme d’&lt;a href=&quot;http://en.wikipedia.org/wiki/Constrained_conditional_model&quot;&gt;apprentissage automatique&lt;/a&gt;, est capable de suivre et détecter un visage depuis une image ou une vidéo et d’en extraire les coordonnées intéressantes en se basant sur un modèle déterminé.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;size-full wp-image-2392 aligncenter&quot; alt=&quot;clmtrackr Clmtrackr : suivre les expressions dun visage en JavaScript&quot; src=&quot;http://elliptips.info/wp-content/uploads/2014/01/clmtrackr.jpg&quot; srcset=&quot;http://elliptips.info/wp-content/uploads/2014/01/clmtrackr.jpg 300w, http://elliptips.info/wp-content/uploads/2014/01/clmtrackr-250x228.jpg 250w, http://elliptips.info/wp-content/uploads/2014/01/clmtrackr-120x109.jpg 120w&quot; sizes=&quot;(max-width: 300px) 100vw, 300px&quot; title=&quot;Clmtrackr : suivre les expressions dun visage en JavaScript photo&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Le tracking est vraiment impressionnant et les applications peuvent être nombreuses, comme le prouve &lt;a href=&quot;http://auduno.github.io/clmtrackr/examples/clm_emotiondetection.html&quot;&gt;cet exemple&lt;/a&gt; capable de détecter une émotion sur votre visage.&lt;/p&gt;
+
+&lt;p&gt;À noter que vous aurez besoin d’un navigateur récent supportant WebGL pour vous amuser avec clmtrackr.&lt;/p&gt;
+
+&lt;p&gt; &lt;/p&gt;</content><author><name>Robin</name></author><summary type="html">Clmtrackr est une bibliothèque JavaScript qui permet de suivre de manière très précise les expressions d’un visage. L’outil, basé sur un algorithme d’apprentissage automatique, est capable de suivre et détecter un visage depuis une image ou une vidéo et d’en extraire les coordonnées intéressantes en se basant sur un modèle déterminé.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://elliptips.info/wp-content/uploads/2014/01/tracking.png" /></entry><entry><title type="html">Quelques nouvelles</title><link href="http://elliptips.info/quelques-nouvelles/" rel="alternate" type="text/html" title="Quelques nouvelles" /><published>2014-01-23T00:36:59+01:00</published><updated>2014-01-23T00:36:59+01:00</updated><id>http://elliptips.info/quelques-nouvelles</id><content type="html" xml:base="http://elliptips.info/quelques-nouvelles/">&lt;p&gt;Tout d’abord, j’aimerais profiter de ce billet pour vous souhaiter en retard (donc comme à mon habitude), une bonne année 2014, puisse t’elle être remplie de bidouilles et découvertes en tout genre 🙂 .&lt;/p&gt;
+
+&lt;p&gt;Peut-être l’avez-vous remarqué, mais on ne peut pas vraiment dire que mon rythme de publication ait été très soutenu en 2013. En effet, l’année s’est déroulée incroyablement vite et entre la fin des études, la rédaction d’un mémoire (se mettre à l’intégrale de Lost en même temps n’était pas une bonne idée), la fin de ma petite activité d’auto-entrepreneur, le début d’une nouvelle au sein d’une agence web et le lancement d’un projet dont je vous reparlerai sous peu, je dois avouer que je n’ai pas eu le temps d’aborder tous les thèmes que j’avais en tête pour le site.&lt;/p&gt;
+
+&lt;p&gt;Rien de très grave puisque ça n’est que partie remise, mais j’espère être plus assidu dans mon exercice d’écriture en 2014 (disons que ça compte comme une bonne résolution).&lt;/p&gt;
+
+&lt;p&gt;De mon côté, je vais essayer de flâner un peu du côté de NodeJS et de développer un maximum de petits projets perso pour m’exercer. J’avais un peu laissé tomber tout ça en 2013 et je dois avouer que ça me manquait terriblement, car pratiquer reste la meilleure solution pour découvrir de nouvelles technos.&lt;/p&gt;
+
+&lt;p&gt;En ce qui concerne l’aspect purement logistique, j’ai suite aux conseils de &lt;a href=&quot;https://twitter.com/zeroload&quot;&gt;@zeroload&lt;/a&gt;, migré le blog sur un petit VPS de chez Digital Ocean. J’admets volontiers avoir été agréablement surpris par la qualité de leurs services et il faut dire que leur croissance est tout bonnement impressionnante. Pour ce qui est du blog,  je commence un peu à saturer avec WordPress et j’ai commencé à étudier d’autres solutions comme &lt;a href=&quot;https://ghost.org/&quot;&gt;Ghost&lt;/a&gt; dont vous avez probablement entendu parler, ou Jekyll.&lt;/p&gt;
+
+&lt;p&gt;&lt;span style=&quot;line-height: 1.5em;&quot;&gt;Bref, je dois encore voir pour la migration car je pense m’attaquer avant à une légère refonte graphique. E&lt;/span&gt;n attendant, sachez que vous pouvez retrouver ma veille technologique quotidienne sur Twitter : &lt;a href=&quot;https://twitter.com/robin_parisi&quot;&gt;@robin_parisi&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;A bientôt sur Elliptips 😉&lt;/p&gt;
+
+&lt;p&gt; &lt;/p&gt;</content><author><name>Robin</name></author><summary type="html">Tout d’abord, j’aimerais profiter de ce billet pour vous souhaiter en retard (donc comme à mon habitude), une bonne année 2014, puisse t’elle être remplie de bidouilles et découvertes en tout genre 🙂 .</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://elliptips.info/wp-content/uploads/2014/01/news-180x160.png" /></entry><entry><title type="html">Guide Debian 7 (partie 8/8) : Derniers conseils !</title><link href="http://elliptips.info/guide-debian-7-derniers-conseils/" rel="alternate" type="text/html" title="Guide Debian 7 (partie 8/8) : Derniers conseils !" /><published>2014-01-23T00:32:07+01:00</published><updated>2014-01-23T00:32:07+01:00</updated><id>http://elliptips.info/guide-debian-7-derniers-conseils</id><content type="html" xml:base="http://elliptips.info/guide-debian-7-derniers-conseils/">&lt;p&gt;Cet article fait partie d’une série de billets portant sur la mise en place d’un serveur sous Debian Wheezy (&lt;a href=&quot;http://elliptips.info/guide-sur-linstallation-dun-serveur-sous-debian-7-wheezy/&quot;&gt;sommaire du guide Debian Wheezy&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Derniers conseils&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Nous voilà enfin arrivés au bout de ce guide portant sur l’installation d’un serveur sous Debian Wheezy (oui je sais, j’ai mis le temps :p).&lt;/p&gt;
+
+&lt;p&gt;De mon côté, je me permets quelques derniers conseils qui je l’espère pourront vous être utiles :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;n’hésitez pas à vous abonner à la liste de diffusion Debian pour être averti le plus rapidement possible des failles de sécurité (&lt;a href=&quot;http://lists.debian.org/debian-security-announce/&quot;&gt;http://lists.debian.org/debian-security-announce/&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;n’installez que le nécessaire &lt;/strong&gt;sur votre serveur, et surtout, évitez de copier des fichiers de configuration en provenance du web dans tous les sens sans véritablement comprendre leur utilité. Une configuration minimale correctement maîtrisée est préférable à une configuration non comprise.&lt;/li&gt;
+  &lt;li&gt;mettez en place une politique de backup simple et automatisée (je vous prépare un petit billet sur le sujet)&lt;/li&gt;
+  &lt;li&gt;préférez un hébergement virtuel (snapshots, déploiement rapide, flexibilité…) et surtout adapté à vos besoins !&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;A vous de jouer !&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;N’hésitez pas à participer dans les commentaires de cet article pour révéler vos trucs et astuces concernant la sécurité d’un serveur Debian (et plus généralement d’un serveur Linux). J’essaierai de tenir à jour ce billet régulièrement en y ajoutant vos retours et améliorations.&lt;/p&gt;</content><author><name>Robin</name></author><summary type="html">Cet article fait partie d’une série de billets portant sur la mise en place d’un serveur sous Debian Wheezy (sommaire du guide Debian Wheezy).</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://elliptips.info/wp-content/uploads/2013/06/wheezy3-180x160.jpg" /></entry><entry><title type="html">Guide Debian 7 (partie 7/8) : surveiller votre serveur avec Glances</title><link href="http://elliptips.info/guide-debian-7-partie-78-surveiller-votre-serveur-avec-glances/" rel="alternate" type="text/html" title="Guide Debian 7 (partie 7/8) : surveiller votre serveur avec Glances" /><published>2013-11-25T05:45:58+01:00</published><updated>2013-11-25T05:45:58+01:00</updated><id>http://elliptips.info/guide-debian-7-partie-78-surveiller-votre-serveur-avec-glances</id><content type="html" xml:base="http://elliptips.info/guide-debian-7-partie-78-surveiller-votre-serveur-avec-glances/">&lt;p&gt;Cet article fait partie d’une série de billets portant sur la mise en place d’un serveur sous Debian Wheezy (&lt;a href=&quot;http://elliptips.info/guide-sur-linstallation-dun-serveur-sous-debian-7-wheezy/&quot; title=&quot;Sommaire du guide Debian 7&quot;&gt;sommaire du guide Debian Wheezy&lt;/a&gt;).&lt;/p&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;Nous venons de mettre en place notre serveur et il serait maintenant intéressant de pouvoir surveiller l’utilisation des différentes ressources (RAM, CPU, disque, etc…). Pour cela, nous allons utiliser Glances, un petit utilitaire développé en Python par &lt;a href=&quot;http://blog.nicolargo.com/&quot;&gt;Nicolargo&lt;/a&gt; qui permet de surveiller simplement un serveur en mode texte, c’est à directement depuis le terminal. Glances peut être comparé à un logiciel tel que htop en étant toutefois beaucoup plus agréable à utiliser selon moi (ne vous enflammez, ça reste de la ligne de commande :p )&lt;/p&gt;
+
+&lt;h2 id=&quot;installation-de-glances&quot;&gt;Installation de Glances&lt;/h2&gt;
+
+&lt;p&gt;Glances étant développé en Python, nous allons passer par le gestionnaire de paquet officiel du langage, c’est à dire pip. On commence par installer les outils nécessaires :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:sh decode:true&quot;&gt;aptitude install python-dev python-pip&lt;/pre&gt;
+
+&lt;p&gt;Puis on installe Glances via pip :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:sh decode:true&quot;&gt;pip install glances&lt;/pre&gt;
+
+&lt;p&gt;Pour mettre à jour Glances par la suite :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:sh decode:true&quot;&gt;pip install --upgrade Glances&lt;/pre&gt;
+
+&lt;h2 id=&quot;utilisation-de-glances&quot;&gt;Utilisation de Glances&lt;/h2&gt;
+
+&lt;p&gt;Concernant l’utilisation, c’est très simple, il suffit de lancer la commande glances après vous être connecté via SSH :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:sh decode:true&quot;&gt;glances&lt;/pre&gt;
+
+&lt;p&gt;&lt;img class=&quot;aligncenter size-large wp-image-2351&quot; alt=&quot;glances 800x505 Guide Debian 7 (partie 7/8) : surveiller votre serveur avec Glances&quot; src=&quot;http://elliptips.info/wp-content/uploads/2013/11/glances-800x505.png&quot; width=&quot;800&quot; height=&quot;505&quot; srcset=&quot;http://elliptips.info/wp-content/uploads/2013/11/glances-800x505.png 800w, http://elliptips.info/wp-content/uploads/2013/11/glances-300x189.png 300w, http://elliptips.info/wp-content/uploads/2013/11/glances.png 874w&quot; sizes=&quot;(max-width: 800px) 100vw, 800px&quot; title=&quot;Guide Debian 7 (partie 7/8) : surveiller votre serveur avec Glances photo&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Je pense que l’interface parle d’elle même, sachez juste que le code couleur s’interprète de la façon suivante :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;span style=&quot;color: #00ff00;&quot;&gt;VERT&lt;/span&gt; : la statistique est “OK”&lt;/li&gt;
+  &lt;li&gt;&lt;span style=&quot;color: #3366ff;&quot;&gt;BLEU&lt;/span&gt; : la statistique est “CAREFUL” (à surveiller)&lt;/li&gt;
+  &lt;li&gt;&lt;span style=&quot;color: #ff00ff;&quot;&gt;VIOLET&lt;/span&gt; : la statistique est “WARNING” (en alerte)&lt;/li&gt;
+  &lt;li&gt;&lt;span style=&quot;color: #ff0000;&quot;&gt;ROUGE&lt;/span&gt; : la statistique est “CRITICAL” (critique)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;L’aide de Glances, accessible en tapant h :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:default decode:true&quot;&gt;a  Classer automatiquement les procel  Show/hide logs
+  c  Classer les processus par CPU%   b  Bytes or bits for network I/O
+  m  Classer les processus par MEM%   w  Suppression des alertes warning
+  p  Classer les processus par ordre ax  Supression de toutes les alertes
+  i  Sort processes by I/O rate       1  Global CPU or per-CPU stats
+  d  Montrer/cacher les IO disques    h  Show/hide this help screen
+  f  Montrer/cacher les statistiques st  View network I/O as combination
+  n  Montrer/cacher IO réseau         u  View cumulative network I/O
+  s  Show/hide sensors stats          q  Quitter Glances (ESC ou Ctrl-C marc
+  y  Show/hide hddtemp stats&lt;/pre&gt;
+
+&lt;p&gt;Vous pouvez aussi accéder à une documentation plus complète sur &lt;a href=&quot;https://github.com/nicolargo/glances/blob/master/docs/glances-doc.rst&quot; title=&quot;La documentation complète de Glances&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Enfin, sachez que Glances dispose d’un client &lt;a href=&quot;https://play.google.com/store/apps/details?id=org.jrenner.androidglances&quot; title=&quot;Le client Android de Glances&quot;&gt;Android&lt;/a&gt; et d’un client &lt;a href=&quot;https://github.com/spin0us/MetaGlances&quot; title=&quot;Le client web de Glances&quot;&gt;web&lt;/a&gt; (et comme c’est Open Source, rien ne vous empêche de développer le vôtre 🙂 ).&lt;/p&gt;</content><author><name>Robin</name></author><summary type="html">Cet article fait partie d’une série de billets portant sur la mise en place d’un serveur sous Debian Wheezy (sommaire du guide Debian Wheezy).</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://elliptips.info/wp-content/uploads/2013/11/glances-180x160.png" /></entry><entry><title type="html">Guide Debian 7 (partie 6/8) : l’importance des mises à jour</title><link href="http://elliptips.info/guide-debian-7-partie-6-limportance-des-mises-a-jour/" rel="alternate" type="text/html" title="Guide Debian 7 (partie 6/8) : l&amp;#8217;importance des mises à jour" /><published>2013-11-12T11:30:03+01:00</published><updated>2013-11-12T11:30:03+01:00</updated><id>http://elliptips.info/guide-debian-7-partie-6-limportance-des-mises-a-jour</id><content type="html" xml:base="http://elliptips.info/guide-debian-7-partie-6-limportance-des-mises-a-jour/">&lt;p&gt;Cet article fait partie d’une série de billets portant sur la mise en place d’un serveur sous Debian Wheezy (&lt;a href=&quot;http://elliptips.info/guide-sur-linstallation-dun-serveur-sous-debian-7-wheezy/&quot; title=&quot;Sommaire du guide Debian 7&quot;&gt;sommaire du guide Debian Wheezy&lt;/a&gt;).&lt;/p&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;Il est essentiel de maintenir votre serveur à jour, dans une optique de sécurité bien sûr, mais aussi en vue d’obtenir les versions optimisées de chacun de vos logiciels.&lt;/p&gt;
+
+&lt;p&gt;La procédure manuelle n’est pas très complexe. On commence par synchroniser la liste des paquets :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:sh decode:true&quot;&gt;aptitude update&lt;/pre&gt;
+
+&lt;p&gt;Puis on lance la mise à jour :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:default decode:true&quot;&gt;aptitude dist-upgrade&lt;/pre&gt;
+
+&lt;h2 id=&quot;l8217utilitaire-cron-apt&quot;&gt;L’utilitaire cron-apt&lt;/h2&gt;
+
+&lt;p&gt;Cron-apt est un petit utilitaire qui va nous aider dans la gestion des mises à jour sur notre serveur.&lt;/p&gt;
+
+&lt;p&gt;On installe le paquet cron-apt :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:sh decode:true&quot;&gt;aptitude install cron-apt&lt;/pre&gt;
+
+&lt;p&gt;On édite le fichier de configuration :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:sh decode:true&quot;&gt;vim /etc/cron-apt/config&lt;/pre&gt;
+
+&lt;p&gt;Il faut alors spécifier le gestionnaire de paquet à utiliser (dans mon cas &lt;strong&gt;aptitude&lt;/strong&gt;) et une adresse mail de réception pour les rapports :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:sh decode:true&quot;&gt;APTCOMMAND=/usr/bin/aptitude
+MAILTO=&quot;votre_mail@example.com&quot;&lt;/pre&gt;
+
+&lt;p&gt;Dès lors, la vérification des mises à jour se fera tous les jours à 4h et vous recevrez un rapport sur votre boîte mail.&lt;/p&gt;
+
+&lt;h2 id=&quot;mises--jour-automatiques&quot;&gt;&lt;strong&gt;Mises à jour automatiques&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;Avec la configuration précédente, les mises à jour sont uniquement téléchargées sans être appliquées. Sachez qu’il est possible de lancer automatiquement l’installation de celles-ci.&lt;/p&gt;
+
+&lt;p&gt;&lt;span style=&quot;color: #ff0000;&quot;&gt;&lt;strong&gt;Attention : j’insiste sur le fait que cette configuration n’est pas souhaitable sur un serveur dont les services sont critiques. Il peut arriver qu’une mise à jour se passe mal et empêche le service de redémarrer (souvent à cause d’un fichier de configuration écrasé).&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Toutefois, si vous souhaitez ne pas trop vous prendre la tête sur votre serveur perso, vous pouvez activer cette fonctionnalité en créant un fichier contenant la commande adéquate dans le répertoire &lt;strong&gt;action.d&lt;/strong&gt; :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:default decode:true&quot;&gt;touch /etc/cron-apt/action.d/5-install&lt;/pre&gt;
+
+&lt;p&gt;Puis on y insère la ligne suivante :&lt;/p&gt;
+
+&lt;pre class=&quot;lang:sh decode:true&quot;&gt;dist-upgrade -y -o APT::Get::Show-Upgraded=true&lt;/pre&gt;
+
+&lt;p&gt;Et voilà, les mises à jour se feront maintenant de manière automatique 🙂&lt;/p&gt;</content><author><name>Robin</name></author><summary type="html">Cet article fait partie d’une série de billets portant sur la mise en place d’un serveur sous Debian Wheezy (sommaire du guide Debian Wheezy).</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://elliptips.info/wp-content/uploads/2013/11/update-180x160.png" /></entry></feed>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Guide Debian 7 (partie 6/8) : l&amp;#8217;importance des mises à jour</title>
+    <meta name="description" content="Cet article fait partie d’une série de billets portant sur la mise en place d’un serveur sous Debian Wheezy (sommaire du guide Debian Wheezy).">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/guide-debian-7-partie-6-limportance-des-mises-a-jour/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Guide Debian 7 (partie 6/8) : l&amp;#8217;importance des mises à jour</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2013-11-12T11:30:03+01:00" itemprop="datePublished">publié le 12/11/2013</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+1 min
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p>Cet article fait partie d’une série de billets portant sur la mise en place d’un serveur sous Debian Wheezy (<a href="http://elliptips.info/guide-sur-linstallation-dun-serveur-sous-debian-7-wheezy/" title="Sommaire du guide Debian 7">sommaire du guide Debian Wheezy</a>).</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Il est essentiel de maintenir votre serveur à jour, dans une optique de sécurité bien sûr, mais aussi en vue d’obtenir les versions optimisées de chacun de vos logiciels.</p>
+
+<p>La procédure manuelle n’est pas très complexe. On commence par synchroniser la liste des paquets :</p>
+
+<pre class="lang:sh decode:true">aptitude update</pre>
+
+<p>Puis on lance la mise à jour :</p>
+
+<pre class="lang:default decode:true">aptitude dist-upgrade</pre>
+
+<h2 id="l8217utilitaire-cron-apt">L’utilitaire cron-apt</h2>
+
+<p>Cron-apt est un petit utilitaire qui va nous aider dans la gestion des mises à jour sur notre serveur.</p>
+
+<p>On installe le paquet cron-apt :</p>
+
+<pre class="lang:sh decode:true">aptitude install cron-apt</pre>
+
+<p>On édite le fichier de configuration :</p>
+
+<pre class="lang:sh decode:true">vim /etc/cron-apt/config</pre>
+
+<p>Il faut alors spécifier le gestionnaire de paquet à utiliser (dans mon cas <strong>aptitude</strong>) et une adresse mail de réception pour les rapports :</p>
+
+<pre class="lang:sh decode:true">APTCOMMAND=/usr/bin/aptitude
+MAILTO="votre_mail@example.com"</pre>
+
+<p>Dès lors, la vérification des mises à jour se fera tous les jours à 4h et vous recevrez un rapport sur votre boîte mail.</p>
+
+<h2 id="mises--jour-automatiques"><strong>Mises à jour automatiques</strong></h2>
+
+<p>Avec la configuration précédente, les mises à jour sont uniquement téléchargées sans être appliquées. Sachez qu’il est possible de lancer automatiquement l’installation de celles-ci.</p>
+
+<p><span style="color: #ff0000;"><strong>Attention : j’insiste sur le fait que cette configuration n’est pas souhaitable sur un serveur dont les services sont critiques. Il peut arriver qu’une mise à jour se passe mal et empêche le service de redémarrer (souvent à cause d’un fichier de configuration écrasé).</strong></span></p>
+
+<p>Toutefois, si vous souhaitez ne pas trop vous prendre la tête sur votre serveur perso, vous pouvez activer cette fonctionnalité en créant un fichier contenant la commande adéquate dans le répertoire <strong>action.d</strong> :</p>
+
+<pre class="lang:default decode:true">touch /etc/cron-apt/action.d/5-install</pre>
+
+<p>Puis on y insère la ligne suivante :</p>
+
+<pre class="lang:sh decode:true">dist-upgrade -y -o APT::Get::Show-Upgraded=true</pre>
+
+<p>Et voilà, les mises à jour se feront maintenant de manière automatique 🙂</p>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

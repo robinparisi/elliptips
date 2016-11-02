@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Port Knocking : toc toc, qui est là ?</title>
+    <meta name="description" content="Si vous êtes du genre à mettre toutes les armes de votre côté en ce qui concerne la sécurité d’un serveur Linux mais que la technique du Port Knocking vous e...">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/port-knocking-toc-toc-qui-est-la/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Port Knocking : toc toc, qui est là ?</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2011-11-09T21:34:43+01:00" itemprop="datePublished">publié le 09/11/2011</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+3 mins
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p>Si vous êtes du genre à mettre toutes les armes de votre côté en ce qui concerne la <strong>sécurité</strong> d’un serveur <strong>Linux</strong> mais que la technique du Port Knocking vous est étrangère, alors ceci devrait vous intéresser. Et puis si la sécurité vous importe peu, tout n’est pas perdu, vous devriez pouvoir trouver une place de consultant chez <a href="http://www.makeuseof.com/tag/sony-playstation-network-breach-infographic/" title="Sony infographie">Sony</a>.</p>
+
+<p>Troll mis à part, le <strong>port knocking</strong> est une technique permettant de modifier <strong>dynamiquement les règles d’un pare-feu</strong> grâce au lancement préalable d’une suite de connexions sur des ports distincts (tcp et udp) dans le bon ordre.</p>
+
+<p>Ainsi, si même après avoir sécurisé un minimum votre accès SSH, vous continuez à essuyer trop de tentatives de type bruteforce, le port knocking peut-être une solution à votre problème.</p>
+
+<p>Note: je prends ici l’exemple de SSH mais vous pouvez bien sûr utiliser le port knocking avec n’importe lequel de vos services.</p>
+
+<h1 id="installation-du-daemon-knockd">Installation du daemon knockd</h1>
+
+<p>Pour faire fonctionner cette technique, nous allons avoir besoin d’un daemon dont le rôle sera d’écouter les ports afin de détecter une éventuelle séquence connue et agir en conséquence sur les règles du pare-feu.</p>
+
+<p>Sous debian (ou Ubuntu) :</p>
+
+<pre class="brush:shell">sudo aptitude install knockd</pre>
+
+<h1 id="configuration-de-knockd">Configuration de knockd</h1>
+
+<p>La configuration de knockd se trouve dans /etc/knockd.conf. Voici un exemple de configuration à utiliser pour SSH.</p>
+
+<pre class="brush:shell">[opions]
+        UseSyslog
+
+[options]
+      logfile = /var/log/knockd.log
+
+[openSSH]
+        sequence    = 2000:tcp,3000:udp,4000:tcp
+        seq_timeout = 5
+        command     = /sbin/iptables -A INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+        tcpflags    = syn 
+
+[closeSSH]
+        sequence    = 4000:tcp,3000:udp,2000:tcp
+        seq_timeout = 5
+        command     = /sbin/iptables -D INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+        tcpflags    = syn</pre>
+
+<p>Je pense que le fichier parle de lui même :</p>
+
+<ul>
+  <li>la réception de la séquence “2000:tcp,3000:udp,4000:tcp” aura pour conséquence d’ouvrir le port SSH (ici le 22)</li>
+  <li>la séquence inverse fermera le port</li>
+</ul>
+
+<div>
+  A noter : essayez d’utiliser un minimum de 3 ports avec les deux protocoles pour que votre séquence soit difficile à trouver.
+</div>
+
+<p>On édite ensuite le fichier suivant :</p>
+
+<pre class="brush:shell">sudo vim /etc/default/knockd</pre>
+
+<p>Et on passe la valeur de START_KNOCKD à 1.</p>
+
+<h1 id="configuration-du-firewall">Configuration du firewall</h1>
+
+<p>Pour que cela fonctionne, votre firewall doit <strong>par défaut ne laisser passer aucune connexion sur le port SSH</strong>.</p>
+
+<h1 id="dmarrer-le-daemon">Démarrer le daemon</h1>
+
+<p>On démarre knockd :</p>
+
+<pre class="brush:shell">/etc/init.d/knockd start</pre>
+
+<h1 id="et-ct-client-">Et côté client ?</h1>
+
+<p>Il y a plusieurs solutions pour activer une séquence.</p>
+
+<p>Utiliser telnet ou alors plus simplement, le client knockd disponible à l’<a href="http://www.zeroflux.org/projects/knock" title="Client knockd">adresse suivante</a>.</p>
+
+<p>Assurez-vous de placer le binaire dans un endroit accessible par votre shell (echo $PATH dans le terminal pour connaître les emplacements).</p>
+
+<p>On fait un toc sur la séquence prévue :</p>
+
+<pre class="brush:shell">knock [ip] 2000:tcp 3000:udp 4000:tcp</pre>
+
+<p>Pour se simplifier la vie, je vous conseil d’éditer un alias dans votre fichier de configuration dédié à votre shell. En ce qui me concerne, j’utilise ZSH donc :</p>
+
+<pre class="brush:shell">cd
+vim .zshrc</pre>
+
+<p class="brush:shell">
+  Et voici ma configuration (modifiée):
+</p>
+
+<pre class="brush:shell crayon-selected"># Serveur
+alias sms="toc &amp;&amp; ssh [domaine] -p [port]"
+# Port knocking
+alias toc="knock [domaine] 2000:tcp 3000:udp 4000:tcp"
+alias cot="knock [domaine] 4000:tcp 3000:udp 2000:tcp"</pre>
+
+<p>Ainsi, en tapant “sms”, je me connecte directement à mon serveur, le tout de manière transparente. Et pour envoyer la séquence inverse, j’utilise l’alias “cot”.</p>
+
+<p>Pour conclure, knockd est un utilitaire utilisant peu de ressources et très facile à mettre en place qui vous permettra de sécuriser un peu plus les connexions à votre serveur. Bien entendu, ça n’est pas une solution magique qui vous mettra à l’abri de toute intrusion, mais cela vous permettra au moins de rendre la tâche plus difficile aux personnes mal intentionnées.</p>
+
+<p>Et en bonus, le système équivalent dans le monde réel, le tout à base à base d’arduino :p</p>
+
+<p style="text-align: center;">
+</p>
+
+<p><a href="http://worthyg.deviantart.com/art/Please-knock-103732985?offset=10" title="image">[image]</a></p>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

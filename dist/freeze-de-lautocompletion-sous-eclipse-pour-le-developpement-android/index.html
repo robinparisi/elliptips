@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Freeze de l&amp;#8217;autocomplétion sous Eclipse pour le développement Android</title>
+    <meta name="description" content="Si vous débutez le développement Android sous Eclipse en ce moment même, alors peut être êtes-vous en train de vous arracher les cheveux à cause de l&amp;#8216;a...">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/freeze-de-lautocompletion-sous-eclipse-pour-le-developpement-android/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Freeze de l&amp;#8217;autocomplétion sous Eclipse pour le développement Android</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2011-02-07T17:15:12+01:00" itemprop="datePublished">publié le 07/02/2011</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+1 min
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p style="text-align: center;">
+  Si vous débutez le développement <strong>Android</strong> sous <strong>Eclipse</strong> en ce moment même, alors peut être êtes-vous en train de vous arracher les cheveux à cause de l<strong>&#8216;autocomplétion</strong> qui n&#8217;a de cesse de freezer.
+</p>
+
+<p style="text-align: justify;">
+  Ainsi, pour accéder à certaines méthodes, il faut parfois attendre de nombreuses secondes (voir minutes ) avant que Eclipse ne se décide à afficher les résultats.
+</p>
+
+<p style="text-align: justify;">
+  Rassurez-vous, ce bug est connu et devrait être corrigé dans les versions futures, en attendant, il existe une solution qui marche à merveille tout en vous évitant d&#8217;en arriver à désactiver l&#8217;autocomplétion.
+</p>
+
+<h3 style="text-align: justify;">
+  Téléchargement des sources du SDK :
+</h3>
+
+<p style="text-align: justify;">
+  Pour cela, on commence par télécharger les sources du SDK qui nous intéresse  (un peu plus de 100 MB):
+</p>
+
+<ul style="text-align: justify;">
+  <li>
+    <span style="color: #51d22c;"><strong>Android 2.3</strong></span> | API 9 ( gingerbread) :
+  </li>
+  <li>
+    <span class="removed_link" title="http://android.git.kernel.org/?p=platform/frameworks/base.git;a=snapshot;h=gingerbread;sf=tgz">http://android.git.kernel.org/?p=platform/frameworks/base.git;a=snapshot;h=gingerbread;sf=tgz</span>
+  </li>
+</ul>
+
+<ul style="text-align: justify;">
+  <li>
+    <span style="color: #51d22c;"><strong>Android 2.2</strong></span> | API 8 ( froyo) :
+  </li>
+  <li>
+    <span class="removed_link" title="http://android.git.kernel.org/?p=platform/frameworks/base.git;a=snapshot;h=froyo;sf=tgz">http://android.git.kernel.org/?p=platform/frameworks/base.git;a=snapshot;h=froyo;sf=tgz</span>
+  </li>
+</ul>
+
+<ul style="text-align: justify;">
+  <li>
+    <span style="color: #51d22c;"><strong>Android 2.1</strong></span> | API 7 ( eclair) :
+  </li>
+  <li>
+    <span class="removed_link" title="http://android.git.kernel.org/?p=platform/frameworks/base.git;a=snapshot;h=eclair;sf=tgz">http://android.git.kernel.org/?p=platform/frameworks/base.git;a=snapshot;h=eclair;sf=tgz</span>
+  </li>
+</ul>
+
+<ul style="text-align: justify;">
+  <li>
+    <span style="color: #51d22c;"><strong>Android 1.6</strong></span> | API 6 ( donut) :
+  </li>
+  <li>
+    <span class="removed_link" title="http://android.git.kernel.org/?p=platform/frameworks/base.git;a=snapshot;h=donut;sf=tgz">http://android.git.kernel.org/?p=platform/frameworks/base.git;a=snapshot;h=donut;sf=tgz</span>
+  </li>
+</ul>
+
+<h3 style="text-align: justify;">
+  Marche à suivre :
+</h3>
+
+<p style="text-align: justify;">
+  Une fois le tar.gz obtenu, il faut décompresser son contenu dans le répertoire dédié sur le disque dur, qui se situe ici :
+</p>
+
+<blockquote>
+  <p style="text-align: justify;">
+  <strong>[android-sdk]\plateform\android-[version]\sources</strong>
+</p>
+</blockquote>
+
+<p style="text-align: justify;">
+  Si le dossier <em>sources</em> n&#8217;existe pas, alors il faut le créer.
+</p>
+
+<p style="text-align: justify;">
+  Par exemple, si vous avez téléchargé les sources pour froyo, alors vous devez placer le contenu de l&#8217;archive dans [android-sdk]\plateform\android-8\sources
+</p>
+
+<h3 style="text-align: justify;">
+  On termine :
+</h3>
+
+<p style="text-align: justify;">
+  Démarrez ou redémarrez Eclipse et admirez : il n&#8217;y à plus aucune latence pour l&#8217;autocomplétion, c&#8217;est quand même plus agréable non ?
+</p>
+
+<p style="text-align: justify;">
+  Astuce trouvée sur<a href="http://envyandroid.com/archives/66/slow-android-autocomplete-eclipse-helios-36"> ce blog </a>(merci à lui)
+</p>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Convertir rapidement ses images en base 64</title>
+    <meta name="description" content="Encoder ses images en base64 est une technique d’optimisation web qui permet de convertir une image en une chaîne de caractères directement exploitable par l...">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/convertir-rapidement-ses-images-en-base-64/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Convertir rapidement ses images en base 64</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2014-02-04T02:13:36+01:00" itemprop="datePublished">publié le 04/02/2014</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+1 min
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p>Encoder ses images en base64 est une technique d’optimisation web qui permet de convertir une image en une chaîne de caractères directement exploitable par le navigateur, le but principal étant d’économiser une requête HTTP vers la ressource (puisque celle-ci est directement embarquée dans le HTML ou le CSS).</p>
+
+<p>Revers de la médaille, cette technique génère une chaîne plus lourde que le fichier original. Il faut donc l’utiliser avec parcimonie sur de <strong>petites images</strong> et jauger le gain en terme de performances.</p>
+
+<p>Ainsi, même si la technique se révèle assez efficace pour une ou deux images, il faut lui préférer au-delà la technique des sprites CSS ou encore l’utilisation d’une police d’icônes (pour des icônes simples et monochromes).</p>
+
+<p>Enfin, vous devez savoir que le navigateur IE7 ne gère pas ce format (mais ça on s’en fiche :p) et que IE8 impose une limite de 32 KB à celui-ci (mais à ce niveau, on perd l’intérêt de la chose).</p>
+
+<h2 id="utilisation-concrte">Utilisation concrète</h2>
+
+<p><span style="line-height: 1.5em;">Un exemple dans le HTML :</span></p>
+
+<pre class="lang:xhtml decode:true">&lt;img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"&gt;</pre>
+
+<p>Un exemple dans le CSS :</p>
+
+<pre class="lang:css decode:true">background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAIAAAAiZtkUAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAE1JREFUeNpi6dFgYmdj//nrpwAXx6+f3xkYGFj+MrN++/uPgZn1968fbOycICFhdmYGMPj+h+nrtx/MTExMEMVA8uP3n0AdvxiZAQIMABFCHYYroQd+AAAAAElFTkSuQmCC);</pre>
+
+<h2 id="l8217astuce-avec-openssl">L’astuce avec openssl</h2>
+
+<p>Il existe de nombreux convertisseurs en ligne capable d’effectuer cette tâche. Toutefois, sachez que vous disposez déjà des outils nécessaires et il serait donc dommage de s’en priver 🙂</p>
+
+<p>L’astuce se situe au niveau de l’utilitaire openssl (à utiliser en ligne de commande) :</p>
+
+<pre class="lang:sh decode:true">openssl base64 -in mon_image.png | tr -d '\n'</pre>
+
+<p>Ici, on convertit l’image en base64 pour ensuite rediriger le résultat vers la commande <strong>tr</strong> qui permet de supprimer les retours chariot.</p>
+
+<p>Pour encore plus de rapidité, il est possible de copier directement la chaîne dans votre presse-papier.</p>
+
+<p>Sur OSX :</p>
+
+<pre class="lang:default decode:true">openssl base64 -in vertical_cloth.png  | tr -d '\n' | pbcopy</pre>
+
+<p>Sur Linux (nécessite l’installation du paquet xclip) :<span style="background-color: #f4f4f4;"><br /> </span></p>
+
+<pre class="lang:sh decode:true">openssl base64 -in vertical_cloth.png  | tr -d '\n' | xclip</pre>
+
+<p>bref, une technique à utiliser avec modération mais qui peut parfois s’avérer utile.</p>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

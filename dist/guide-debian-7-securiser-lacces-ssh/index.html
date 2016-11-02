@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Guide Debian 7 (partie 2/8) : sécuriser l&amp;#8217;accès SSH</title>
+    <meta name="description" content="Cet article fait partie d’une série de billets portant sur la mise en place d’un serveur sous Debian Wheezy (voir le sommaire).">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/guide-debian-7-securiser-lacces-ssh/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Guide Debian 7 (partie 2/8) : sécuriser l&amp;#8217;accès SSH</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2013-06-20T13:00:57+02:00" itemprop="datePublished">publié le 20/06/2013</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+5 mins
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p>Cet article fait partie d’une série de billets portant sur la mise en place d’un serveur sous Debian Wheezy (<a href="http://elliptips.info/guide-sur-linstallation-dun-serveur-sous-debian-7-wheezy/" title="guide debian wheezy sommaire">voir le sommaire</a>).</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>De la même façon que vous ne laissez pas la porte ouverte en sortant de chez vous, la porte d’entrée de votre serveur, c’est-à-dire l’accès SSH, requiert un minimum de sécurisation.</p>
+
+<h2 id="modifier-le-mot-de-passe-root"><strong>Modifier le mot de passe root</strong></h2>
+
+<p>En général, après la commande d’un serveur dédié ou virtuel, votre prestataire vous transmettra les informations de connexion par mail, en y joignant le mot de passe du compte root. Il est important de <strong>changer celui-ci immédiatement dès votre première connexion</strong>.</p>
+
+<p>Pour cela, lancez la commande suivante en root :</p>
+
+<pre class="lang:sh decode:true">passwd</pre>
+
+<p>Je ne vous ferai pas l’affront de vous expliquer pourquoi un mot de passe suffisamment complexe pour ne pas être trouvé pas une attaque de type bruteforce ou dictionnaire est très largement souhaitable 🙂</p>
+
+<h2 id="ajout-dun-nouvel-utilisateur"><strong>Ajout d’un nouvel utilisateur</strong></h2>
+
+<p>Pour la suite, et pour des raisons de sécurité évidentes, <strong>nous n’utiliserons pas le compte root pour les connexions à distance</strong>. C’est pourquoi nous allons créer un groupe contenant des utilisateurs qui seront autorisés à se connecter via SSH.</p>
+
+<pre class="lang:sh decode:true">groupadd sshusers</pre>
+
+<p>On créé ensuite un nouvel utilisateur puis on l’ajoute au groupe qui sera autorisé à se connecter via SSH.</p>
+
+<pre class="lang:sh decode:true">useradd -m homer
+passwd homer
+usermod -a -G sshusers homer</pre>
+
+<h2 id="configuration-de-ssh"><strong>Configuration de ssh</strong></h2>
+
+<pre class="lang:sh decode:true">vim /etc/ssh/sshd_config</pre>
+
+<p>On commence par changer le port par défaut :</p>
+
+<pre class="lang:default decode:true">Port 2222</pre>
+
+<p>Note : Vous pouvez utiliser n’importe quel port, pour peu que celui-ci ne soit pas réservé par un autre service. Avoir un port non standard vous permettra d’éviter une partie des attaques automatisées que l’on rencontre chez certains prestataires . Et comme j’entends déjà les experts hurler, je précise que oui, l’obscurantisme n’est en aucun cas un gage de sécurité. Toutefois, je peux vous assurer qu’un simple changement de port sur une <em>dedibox</em> permet de souffler un peu au niveau des tentatives de bruteforce SSH (les IP des machines sont connues et les scripts kiddies s’en donnent à coeur joie). Pour conclure, n’oubliez jamais qu’un attaquant qui se focalisera sur votre serveur n’aura aucun mal à déterminer sur quel port tourne le daemon SSH.</p>
+
+<p>Le compte root n’est pas autorisé à se connecter directement depuis SSH :</p>
+
+<pre>PermitRootLogin no</pre>
+
+<p>Seul les utilisateurs appartenant au groupe sshusers sont autorisés à se connecter (il faut ajouter cette ligne) :</p>
+
+<pre>AllowGroups sshusers</pre>
+
+<p>on vérifie que la version 2 du protocole est utilisée :</p>
+
+<pre class="lang:sh decode:true">Protocol 2</pre>
+
+<p>On redémarre le daemon SSH :</p>
+
+<pre class="lang:sh decode:true">/etc/init.d/ssh restart</pre>
+
+<p><span style="color: #ff0000;">À ce stade, ne surtout pas fermer l’ancienne connexion, au risque de ne plus pouvoir se reconnecter par la suite. Ce que je vous conseille, c’est d’ouvrir un nouvel onglet dans votre terminal et de tester la connexion avec le port et l’utilisateur adéquat.</span></p>
+
+<h2 id="authentification-par-un-systme-de-cl-publiquecl-prive"><strong>Authentification par un système de clé publique/clé privée</strong></h2>
+
+<p>L’authentification par <strong>clé publique/privée</strong> se révèle pratique dans le cas où vous souhaitez ne pas avoir à taper le mot de passe à chaque connexion.</p>
+
+<p>Cette technique permet de renforcer la sécurité, car elle demande à l’utilisateur d’être en possession de deux informations pour se connecter au serveur (<strong>une clé privée et le mot de passe de cette clé</strong>).</p>
+
+<p>Je ne détaillerai pas ici le fonctionnement du protocole, sachez juste que nous allons avoir besoin de deux choses :</p>
+
+<ul>
+  <li>une clé privée, que l’on gardera précieusement sur notre ordinateur, dans le dossier .ssh de notre répertoire personnel</li>
+  <li>une clé publique, que l’on enverra dans le dossier .ssh de l’utilisateur sur le serveur</li>
+</ul>
+
+<p>Pour générer tout ça, rien de plus simple, il suffit de lancer la commande suivante sur <strong>votre ordinateur</strong> .</p>
+
+<pre class="lang:sh decode:true">ssh-keygen -t rsa</pre>
+
+<p>Répondre aux questions :</p>
+
+<pre class="lang:default decode:true">Enter file in which to save the key (/Users/votre_user/.ssh/id_rsa): faire entrée
+
+Enter passphrase (empty for no passphrase): choisir un mot de passe qui protègera la clé</pre>
+
+<p>La phrase de passe (ou passphrase) sert en fait à décrypter votre clé privée. Il est possible de ne pas en mettre, mais dans ce cas, une personne qui mettrait la main sur votre clé privée serait tout à fait apte à se connecter au serveur. Bref, il serait idiot de se priver d’une protection supplémentaire, donc choisissez un mot de passe avec soin.</p>
+
+<p>Il faut maintenant copier la clé publique dans le répertoire .ssh de votre utilisateur (celui avec lequel vous vous connectez sur le serveur) :</p>
+
+<p>Pour cela, lancer la commande suivante depuis votre ordinateur :</p>
+
+<pre class="lang:sh decode:true">ssh &lt;user&gt;@&lt;ip_du_serveur&gt; -p &lt;port&gt; "echo $(cat ~/.ssh/id_rsa.pub) &gt;&gt; .ssh/authorized_keys"</pre>
+
+<p>Note : il se peut que le répertoire .ssh n’existe pas dans le home de votre utilisateur sur le serveur. Il suffit de se connecter sur celui-ci et de le créer :</p>
+
+<pre class="lang:sh decode:true">cd
+mkdir .ssh
+touch .ssh/authorized_keys</pre>
+
+<p>Si tout s’est bien passé, vous devriez être en mesure de vous connecter au serveur en utilisant le système de clé. À la première connexion, le mot de passe servant à décrypter la clé privée vous sera demandé. Sur OSX, le système vous proposera de l’enregistrer dans le trousseau d’accès. Sous un système Linux, il est possible qu’il en fasse de même (sinon, utilisez ssh-agent pour ne pas avoir à retaper ce mot de passe).</p>
+
+<p>Si vous le souhaitez, vous pouvez aussi utiliser uniquement le système de clés pour vous connecter au serveur en passant le paramètre PasswordAuthentication sur no dans le fichier /etc/ssh/sshd_config. De ce fait, seule une personne possédant la clé privée et son mot de passe sera apte à se connecter. Cependant, si jamais vous perdez cette clé, vous serez incapable de vous connecter par la suite. Faites donc attention si vous optez pour cette solution</p>
+
+<p>Rendez-vous demain pour la troisième partie de ce guide qui portera sur l’envoi de mail depuis votre serveur 🙂</p>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

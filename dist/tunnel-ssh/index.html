@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Utiliser les tunnels SSH</title>
+    <meta name="description" content="SSH c’est bien pratique et je pense que personne ne me contredira la dessus, mais connaissez-vous les tunnels SSH ?">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/tunnel-ssh/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Utiliser les tunnels SSH</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2011-01-27T15:12:13+01:00" itemprop="datePublished">publié le 27/01/2011</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+4 mins
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p>SSH c’est bien pratique et je pense que personne ne me contredira la dessus, mais connaissez-vous les tunnels SSH ?</p>
+
+<p>Il existe plusieurs façons de créer un tunnel SSH. En ce qui nous concerne, nous allons voir aujourd’hui comment utiliser un de ces tunnels couplé à un navigateur web afin de surfer sur internet au travers d’un serveur distant.</p>
+
+<h3 id="ok-mais-a-sert--quoi-">Ok, mais ça sert à quoi ?</h3>
+
+<p>Chacun y trouvera une utilité. Vous pouvez par exemple utiliser un tunnel SSH si :</p>
+
+<ul>
+  <li>Vous ne faites pas confiance au réseau sur lequel vous vous trouvez et ne souhaitez pas que votre trafic non-sécurisé y transite</li>
+  <li>Une politique de restriction est mise en place et vous ne pouvez pas accéder à certains sites</li>
+  <li>Vous ne voulez pas ouvrir d’autres ports que celui dédié à SSH sur votre routeur mais vous souhaitez tout de même accéder à des interfaces web de gestion sur votre serveur (par exemple pour un client torrent ou ftp).</li>
+</ul>
+
+<h3 id="comment-a-marche-">Comment ça marche ?</h3>
+
+<p>Je vous ai fait un petit schéma, ce sera sûrement mieux qu’un long discours :</p>
+
+<p>Le principe est simple: initier une connexion chiffrée entre votre machine et un serveur distant et ensuite naviguer sur internet comme si vous vous trouviez sur le serveur distant. Le rôle du serveur est donc de relayer les requêtes HTTP ou autres qui transitent par le tunnel SSH.</p>
+
+<div id="attachment_839" style="width: 529px" class="wp-caption aligncenter">
+  <a href="http://elliptips.info/wp-content/uploads/2011/01/tunnel_ssh1.jpg"><img class="size-full wp-image-839  " title="tunnel_ssh" src="http://elliptips.info/wp-content/uploads/2011/01/tunnel_ssh1.jpg" alt="tunnel ssh1 Utiliser les tunnels SSH" width="519" height="358" srcset="http://elliptips.info/wp-content/uploads/2011/01/tunnel_ssh1.jpg 927w, http://elliptips.info/wp-content/uploads/2011/01/tunnel_ssh1-300x206.jpg 300w" sizes="(max-width: 519px) 100vw, 519px" /></a>
+  
+  <p class="wp-caption-text">
+    Un tunnel SSH
+  </p>
+</div>
+
+<h3 id="pr-requis">Pré-requis</h3>
+
+<p>Vous aurez bien sûr besoin d’un serveur SSH  et d’un accès à ce serveur. Pour cet exemple, nous utiliserons Firefox mais le principe reste le même sur les autres navigateurs.</p>
+
+<h3 id="etablir-la-connexion-ssh">Etablir la connexion SSH</h3>
+
+<p>Tout d’abord, choisissons un port au hasard, mais attention, celui-ci ne doit pas être utilisé sur la machine cliente, par exemple le 9999.</p>
+
+<p>Ensuite dans un terminal (si vous êtes sous windows, vous pouvez utiliser Putty):</p>
+
+<pre class="brush:shell">ssh -D 9999 -p 2222 utilisateur@hostname</pre>
+
+<p>utilisateur : votre user sur le serveur distant</p>
+
+<p>hostname : l’adresse ip du serveur distant</p>
+
+<h3 id="configurons-firefox">Configurons Firefox</h3>
+
+<p style="text-align: center;">
+  Dans Firefox : Préférences -&gt; Avancé -&gt; Réseaux puis Paramêtres
+</p>
+
+<p style="text-align: center;">
+  <a href="http://elliptips.info/wp-content/uploads/2011/01/firefox_parametres.png"><img class="aligncenter size-full wp-image-240" title="firefox_parametres" src="http://elliptips.info/wp-content/uploads/2011/01/firefox_parametres.png" alt="firefox parametres Utiliser les tunnels SSH" width="476" height="246" srcset="http://elliptips.info/wp-content/uploads/2011/01/firefox_parametres.png 680w, http://elliptips.info/wp-content/uploads/2011/01/firefox_parametres-300x154.png 300w" sizes="(max-width: 476px) 100vw, 476px" /></a>
+</p>
+
+<p style="text-align: center;">
+  Configurez l&#8217;hôte SOCKS comme sur la capture ci-dessous
+</p>
+
+<div id="attachment_239" style="width: 510px" class="wp-caption aligncenter">
+  <a href="http://elliptips.info/wp-content/uploads/2011/01/firefox_config.png"><img class="size-full wp-image-239 " title="firefox_config" src="http://elliptips.info/wp-content/uploads/2011/01/firefox_config.png" alt="firefox config Utiliser les tunnels SSH" width="500" height="430" srcset="http://elliptips.info/wp-content/uploads/2011/01/firefox_config.png 625w, http://elliptips.info/wp-content/uploads/2011/01/firefox_config-300x258.png 300w" sizes="(max-width: 500px) 100vw, 500px" /></a>
+  
+  <p class="wp-caption-text">
+    Configuration de Firefox pour le tunneling
+  </p>
+</div>
+
+<p>Et voilà, vous pouvez maintenant surfez en toute tranquillité.</p>
+
+<h3 id="test">Test</h3>
+
+<p>Pour tester, si je me rends sur un site affichant l’adresse IP, je me retrouve avec :</p>
+
+<div id="attachment_242" style="width: 394px" class="wp-caption aligncenter">
+  <a href="http://elliptips.info/wp-content/uploads/2011/01/ip_distante.png"><img class="size-full wp-image-242" title="ip_distante" src="http://elliptips.info/wp-content/uploads/2011/01/ip_distante.png" alt="ip distante Utiliser les tunnels SSH" width="384" height="56" srcset="http://elliptips.info/wp-content/uploads/2011/01/ip_distante.png 384w, http://elliptips.info/wp-content/uploads/2011/01/ip_distante-300x43.png 300w" sizes="(max-width: 384px) 100vw, 384px" /></a>
+  
+  <p class="wp-caption-text">
+    IP avec laquelle je navigue
+  </p>
+</div>
+
+<p>On retrouve bien l’adresse du serveur alors que ma propre adresse est :</p>
+
+<div id="attachment_243" style="width: 383px" class="wp-caption aligncenter">
+  <a href="http://elliptips.info/wp-content/uploads/2011/01/mon_ip.png"><img class="size-full wp-image-243" title="mon_ip" src="http://elliptips.info/wp-content/uploads/2011/01/mon_ip.png" alt="mon ip Utiliser les tunnels SSH" width="373" height="49" srcset="http://elliptips.info/wp-content/uploads/2011/01/mon_ip.png 373w, http://elliptips.info/wp-content/uploads/2011/01/mon_ip-300x39.png 300w" sizes="(max-width: 373px) 100vw, 373px" /></a>
+  
+  <p class="wp-caption-text">
+    Ma véritable IP
+  </p>
+</div>
+
+<p>On peut donc en conclure que le tunnel fonctionne.</p>
+
+<p>Et je peux par exemple accéder à l’interface Webmin du serveur sur le port 10000:</p>
+
+<div id="attachment_245" style="width: 507px" class="wp-caption aligncenter">
+  <a href="http://elliptips.info/wp-content/uploads/2011/01/webmin.png"><img class="size-full wp-image-245 " title="webmin" src="http://elliptips.info/wp-content/uploads/2011/01/webmin.png" alt="webmin Utiliser les tunnels SSH" width="497" height="214" srcset="http://elliptips.info/wp-content/uploads/2011/01/webmin.png 829w, http://elliptips.info/wp-content/uploads/2011/01/webmin-300x128.png 300w" sizes="(max-width: 497px) 100vw, 497px" /></a>
+  
+  <p class="wp-caption-text">
+    Interface Webmin
+  </p>
+</div>
+
+<h3 id="span-stylefont-size-mediumpour-finirspan"><span style="font-size: medium;">Pour finir</span></h3>
+
+<h3 id="span-stylefont-weight-normal-font-size-smallles-requtes-dns-elles-ne-passent-pas-par-le-tunnel-pour-rsoudre-le-problme-il-faut-taper-dans-la-barre-d8217adresse-de-firefox-8220aboutconfig8221-puis-rpondre--l8217avertissement-par-8220je-ferai-attention8221span"><span style="font-weight: normal; font-size: small;">Les requêtes DNS, elles, ne passent pas par le tunnel. Pour résoudre le problème, il faut taper dans la barre d’adresse de Firefox “about:config” puis répondre à l’avertissement par “Je ferai attention”.</span></h3>
+
+<p><span style="font-size: small;">A l’aide du filtre, rechercher la valeur <strong>network.proxy.socks_remote_dns </strong>puis inverser son état (clique droit -&gt; inverser)</span></p>
+
+<p> </p>
+
+<div id="attachment_247" style="width: 606px" class="wp-caption aligncenter">
+  <a href="http://elliptips.info/wp-content/uploads/2011/01/config_dns_firefox.png"><img class="size-full wp-image-247 " title="config_dns_firefox" src="http://elliptips.info/wp-content/uploads/2011/01/config_dns_firefox.png" alt="config dns firefox Utiliser les tunnels SSH" width="596" height="75" srcset="http://elliptips.info/wp-content/uploads/2011/01/config_dns_firefox.png 852w, http://elliptips.info/wp-content/uploads/2011/01/config_dns_firefox-300x37.png 300w" sizes="(max-width: 596px) 100vw, 596px" /></a>
+  
+  <p class="wp-caption-text">
+    Inverser l&#8217;état de network.proxy.socks_remote_dns
+  </p>
+</div>
+
+<p>Et voilà, les requêtes DNS passent elles aussi par le tunnel.</p>
+
+<p>Ne pas oublier de repasser la valeur à false lorsque vous aurez terminé.</p>
+
+<p>Une fois que vous n’avez plus l’utilité du tunnel, fermez-le en tuant le processus (Ctrl + c)</p>
+
+<p>Encore une fois, si vous désirez pousser plus loin les possibilités que vous offre SSH, utilisez le man 😉</p>
+
+<p><span style="font-size: small;"><br /> </span></p>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Guide Debian 7 (partie 5/8) : Fail2ban, gardien de votre serveur</title>
+    <meta name="description" content="Cet article fait partie d’une série de billets portant sur la mise en place d’un serveur sous Debian Wheezy (sommaire du guide Debian Wheezy).">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/guide-debian-7-partie-58-fail2ban-gardien-de-votre-serveur/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Guide Debian 7 (partie 5/8) : Fail2ban, gardien de votre serveur</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2013-11-05T02:38:45+01:00" itemprop="datePublished">publié le 05/11/2013</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+2 mins
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p>Cet article fait partie d’une série de billets portant sur la mise en place d’un serveur sous Debian Wheezy (<a href="http://elliptips.info/guide-sur-linstallation-dun-serveur-sous-debian-7-wheezy/" title="Sommaire du guide Debian 7">sommaire du guide Debian Wheezy</a>).</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Fail2ban est un petit programme chargé de surveiller les logs de votre serveur à la recherche de comportements suspects. Pour reprendre la métaphore utilisée dans un article précédent, si votre serveur était votre maison et SSH la porte d’entrée, fail2ban serait un imposant molosse attendant tranquillement sur le pas de la porte d’éventuels voleurs (en théorie, il ne fera rien au facteur).</p>
+
+<p>Fail2ban se configure simplement via un système de prison et permet de bannir les IP dangereuses en ajoutant dynamiquement des règles à IPTables.</p>
+
+<h2 id="installation">Installation</h2>
+
+<p>On commence par l’installer :</p>
+
+<pre class="lang:sh decode:true">aptitude install fail2ban</pre>
+
+<p>Rapide configuration pour bannir les tentatives infructueuses de connexion via SSH :</p>
+
+<pre class="lang:sh decode:true">vim /etc/fail2ban/jail.conf</pre>
+
+<p>On bannit après 3 tentatives de connexion pour 15 minutes (rien ne vous empêche d’être beaucoup plus sévère) :</p>
+
+<pre class="lang:sh range:7 decode:true">[ssh]                                                                        
+
+enabled = true
+port    =  2222
+filter  = sshd
+logpath  = /var/log/auth.log
+maxretry = 3</pre>
+
+<p>Conseil : évitez d’utiliser une valeur trop haute pour la durée de bannissement. En effet, si vous vous bannissez par erreur (ce qui n’arrivera pas si vous utilisez un certificat SSH), vous devrez attendre, ce qui peut poser problème en cas d’urgence. Dans tous les cas, trouvez le juste milieu, et, si une IP est trop insistante, vous pourrez prendre les mesures nécessaires pour la bannir plus longtemps.</p>
+
+<p>Prise en compte des changements :</p>
+
+<pre class="lang:default decode:true">/etc/init.d/fail2ban restart</pre>
+
+<p>Il est possible de vérifier les bans en surveillant les logs :</p>
+
+<pre class="lang:default decode:true">tail –f /var/log/fail2ban.log</pre>
+
+<h2 id="revevoir-des-mails-de-fail2ban"><strong>Revevoir des mails de fail2ban</strong></h2>
+
+<p>Par défaut, fail2ban utilise sendmail pour l’envoi de rapport, et ça tombe plutôt bien, puisque nous aussi.</p>
+
+<p>On édite de nouveau le fichier jail.conf :</p>
+
+<pre class="lang:default decode:true">vim /etc/fail2ban/jail.con</pre>
+
+<p>Modification de l’adresse mail destinée à recevoir les rapport :</p>
+
+<pre class="lang:default decode:true">destemail = votremail@domain.com</pre>
+
+<p>Et l’étape à <strong>ne pas oublier</strong>, on active l’action permettant l’envoi de rapport :</p>
+
+<pre class="lang:default decode:true">action = %(action_mwl)s</pre>
+
+<p>Les actions disponibles :</p>
+
+<ul>
+  <li><strong>action_</strong> =&gt; simple ban</li>
+  <li><strong>action_mw</strong> =&gt; ban et envoi de mail</li>
+  <li><strong>action_mwl</strong> =&gt; ban, envoi de mail accompagné des logs</li>
+</ul>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

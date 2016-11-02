@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>InstantClick: accélérer la navigation sur son site web</title>
+    <meta name="description" content="InstantClick est une petite bibliothèque JavaScript bien sympathique puisque celle-ci permet d’accélérer la navigation sur un site internet.">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/instantclick-accelerer-la-navigation-de-son-site-web/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">InstantClick: accélérer la navigation sur son site web</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2014-02-17T00:49:54+01:00" itemprop="datePublished">publié le 17/02/2014</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+2 mins
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p><a href="http://instantclick.io/" title="InstantClick site">InstantClick</a> est une petite <strong>bibliothèque JavaScript</strong> bien sympathique puisque celle-ci permet d’accélérer la navigation sur un site internet.</p>
+
+<p>Pour cela, InstantClick va précharger les pages lors de la navigation en se basant sur trois types d’évènements au choix :</p>
+
+<ul>
+  <li>au hover sur un lien</li>
+  <li>au hover sur un lien et après un délai</li>
+  <li>au mousedown (un lien n’est ouvert que lorsque le bouton de la souris est relâché, on gagne donc quelques millisecondes qui participent tout de même à donner cette impression de vitesse)</li>
+</ul>
+
+<p>Si vous êtes un peu dubitatif sur le fonctionnement, je vous encourage à faire le test du clic sur la <a href="http://instantclick.io/click-test.html" title="IInstantClick test">page suivante</a>. Ainsi, on remarque que le délai écoulé entre le hover sur un lien et le clic est en général situé entre 200 et 500 ms.</p>
+
+<p style="text-align: center;">
+  <img class="aligncenter size-full wp-image-2419" alt="instant click InstantClick: accélérer la navigation sur son site web" src="http://elliptips.info/wp-content/uploads/2014/02/instant-click.png" title="InstantClick: accélérer la navigation sur son site web photo" />
+</p>
+
+<p>InstantClick va alors tirer profit de ce délai pour faire une requête en utilisant <a href="https://github.com/defunkt/jquery-pjax" title="Découvrir pjax">le combo pushState + Ajax</a> (plus connu sous le nom de pjax) et propose de ce fait plusieurs avantages :</p>
+
+<ul>
+  <li>les fichiers JS et CSS ne sont pas recompilés à chaque changement de page</li>
+  <li>le chargement est casi imperceptible (pas de flash)</li>
+  <li>la navigation n’est pas cassée (un point crucial dans l’expérience utilisateur)</li>
+</ul>
+
+<p>Maintenant, si vous choisissiez d’implémenter la lib sur votre site, je vous encourage à bien réfléchir avant <strong>au type d’évènement que vous souhaitez utiliser</strong> :</p>
+
+<ul>
+  <li>L’évènement hover sur un site contenant énormément de liens pourrait entrainer trop de requêtes superflues vers le serveur (et donc surcharger celui-ci inutilement)</li>
+  <li>L’évènement mousedown sera <strong>inefficace avec l’utilisation d’un trackpad</strong>. J’ai fait le test sur mon mac, le mousedown levé par un clic au trackpad génère un délai d’environ 7 ms (contre 100 ms avec le bouton physique).</li>
+  <li>L’évènement hover + délai semble lui être un bon compromis, à condition que le délai soit en dessous de la barre des 100 ms (sinon le mousedown lui sera préférable)</li>
+</ul>
+
+<p>Pour finir, sachez qu’il ne vous suffira pas de charger InstantClick pour que tout se fasse comme par magie et vous aurez probablement besoin de faire quelques ajustements pour éviter le conflit avec vos autres scripts (<strong>notamment parce que l’évènement DOMContentLoaded ne sera pas déclenché par la lib</strong>).De plus, il faut être conscient que le script permettra d’accélérer la navigation et non d’améliorer les performances globales de votre site.</p>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Twitter API : Sorry, that page does not exist (code 34)</title>
+    <meta name="description" content="Jusqu’à hier, il était possible d’appeler l’API Twitter via l’adresse suivante :">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/twitter-api-sorry-that-page-does-not-exist-code-34/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Twitter API : Sorry, that page does not exist (code 34)</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2012-10-11T19:49:07+02:00" itemprop="datePublished">publié le 11/10/2012</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+1 min
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p>Jusqu’à hier, il était possible d’appeler l’API Twitter via l’adresse suivante :</p>
+
+<pre class="lang:default decode:true">https://twitter.com/statuses/user_timeline/home_timeline.xml</pre>
+
+<p>Or, cette requête retourne maintenant le code HTTP 404 avec le message d’erreur suivant (pour le format xml) :</p>
+
+<pre class="lang:default decode:true">&lt;errors&gt;
+&lt;error code="34"&gt;Sorry, that page does not exist&lt;/error&gt;
+&lt;/errors&gt;</pre>
+
+<p>Le problème en soi ne vient pas de l’API, mais de l’URL qui a été héritée de l’ancien système et il semblerait que Twitter ait décidé de se séparer définitivement de cette relique. Je sais que beaucoup de thèmes pour blog (notamment celui en place sur ce site) faisaient appel à cette URL pour afficher un bloc contenant les derniers tweets de l’utilisateur. Ainsi, si ce bloc est devenu mystérieusement vide depuis hier ou qu’une erreur s’affiche, il va vous falloir modifier l’URL utilisée pour faire appel à l’API par celle-ci :</p>
+
+<pre class="lang:default decode:true">http://api.twitter.com/1/statuses/home_timeline.format</pre>
+
+<ul>
+  <li>home_timeline correspond au nom de l’utilisateur</li>
+  <li>format correspond à l’un des 4 formats de réponse disponibles (json, xml, rss, atom)</li>
+</ul>
+
+<p>Pour modifier l’URL, faites tout simplement une recherche sur les fichiers de votre thème (l’appel peut se faire dans le JS ou directement depuis le PHP).</p>
+
+<p>Si vous avez un problème avec l’un des paramètres, n’hésitez pas à consulter <a href="https://dev.twitter.com/docs/api/1/get/statuses/home_timeline" title="Documentation Twitter">la documentation</a>.</p>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

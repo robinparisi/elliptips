@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Hyla TPL, le moteur de template simple et efficace</title>
+    <meta name="description" content="Souvent, lorsque l&amp;#8217;on se lance à la recherche d&amp;#8217;un moteur de template pour php, ce qui frappe au premier abord est leur nombre sans cesse croissant.">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/hyla-tpl-le-moteur-de-template-simple-et-efficace/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Hyla TPL, le moteur de template simple et efficace</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2010-01-19T20:00:23+01:00" itemprop="datePublished">publié le 19/01/2010</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+1 min
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p style="text-align: left;">
+  Souvent, lorsque l&#8217;on se lance à la recherche d&#8217;un moteur de template pour php, ce qui frappe au premier abord est leur nombre sans cesse croissant.
+</p>
+
+<p>Je vous présente aujourd’hui <strong><span style="color: #3366ff;"><a title="hyla tpl" href="http://tpl.hyla-project.org/fr/" target="_self">HylaTpl</a></span></strong>, un petit moteur simple mais qui fait ce qu’on lui demande. Loin de moi l’idée de le comparer à des systèmes tel que Smarty, après, tout dépend de l’utilisation que l’on a d’un tel outil.</p>
+
+<p>Bref, HylaTpl se veut volontairement simple et minimaliste, non pas dans le sens péjoratif mais plutôt dans le sens où il offre les fonctionnalités amplement suffisantes la où d’autres sont de véritables usines à gaz…</p>
+
+<p>Un petit Hello World :</p>
+
+<p>hello.php</p>
+
+<pre class="brush:php">&lt;?php
+
+require 'hyla_tpl.class.php';
+
+// Créé l'objet Hyla_Tpl
+$tpl = new Hyla_Tpl('.');
+
+// Import le fichier hello.tpl
+$tpl-&gt;importFile('hello.tpl');
+
+// La variable de template var vaut Hello World !
+$tpl-&gt;setVar('var', 'Hello World !');
+
+// Affiche le résultat
+echo $tpl-&gt;render();
+
+?&gt;</pre>
+
+<p>hello .tpl</p>
+
+<pre class="brush:php">&lt;h1&gt;{$var}&lt;/h1&gt;</pre>
+
+<p>Retrouvez le <a title="le site du moteur HylaTpl" href="http://tpl.hyla-project.org/fr/" target="_blank">ici</a> ainsi qu’une documentation clair et illustrée avec les exemples qui vont bien</p>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

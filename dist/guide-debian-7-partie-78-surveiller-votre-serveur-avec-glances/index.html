@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Guide Debian 7 (partie 7/8) : surveiller votre serveur avec Glances</title>
+    <meta name="description" content="Cet article fait partie d’une série de billets portant sur la mise en place d’un serveur sous Debian Wheezy (sommaire du guide Debian Wheezy).">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/guide-debian-7-partie-78-surveiller-votre-serveur-avec-glances/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Guide Debian 7 (partie 7/8) : surveiller votre serveur avec Glances</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2013-11-25T05:45:58+01:00" itemprop="datePublished">publié le 25/11/2013</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+2 mins
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p>Cet article fait partie d’une série de billets portant sur la mise en place d’un serveur sous Debian Wheezy (<a href="http://elliptips.info/guide-sur-linstallation-dun-serveur-sous-debian-7-wheezy/" title="Sommaire du guide Debian 7">sommaire du guide Debian Wheezy</a>).</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Nous venons de mettre en place notre serveur et il serait maintenant intéressant de pouvoir surveiller l’utilisation des différentes ressources (RAM, CPU, disque, etc…). Pour cela, nous allons utiliser Glances, un petit utilitaire développé en Python par <a href="http://blog.nicolargo.com/">Nicolargo</a> qui permet de surveiller simplement un serveur en mode texte, c’est à directement depuis le terminal. Glances peut être comparé à un logiciel tel que htop en étant toutefois beaucoup plus agréable à utiliser selon moi (ne vous enflammez, ça reste de la ligne de commande :p )</p>
+
+<h2 id="installation-de-glances">Installation de Glances</h2>
+
+<p>Glances étant développé en Python, nous allons passer par le gestionnaire de paquet officiel du langage, c’est à dire pip. On commence par installer les outils nécessaires :</p>
+
+<pre class="lang:sh decode:true">aptitude install python-dev python-pip</pre>
+
+<p>Puis on installe Glances via pip :</p>
+
+<pre class="lang:sh decode:true">pip install glances</pre>
+
+<p>Pour mettre à jour Glances par la suite :</p>
+
+<pre class="lang:sh decode:true">pip install --upgrade Glances</pre>
+
+<h2 id="utilisation-de-glances">Utilisation de Glances</h2>
+
+<p>Concernant l’utilisation, c’est très simple, il suffit de lancer la commande glances après vous être connecté via SSH :</p>
+
+<pre class="lang:sh decode:true">glances</pre>
+
+<p><img class="aligncenter size-large wp-image-2351" alt="glances 800x505 Guide Debian 7 (partie 7/8) : surveiller votre serveur avec Glances" src="http://elliptips.info/wp-content/uploads/2013/11/glances-800x505.png" width="800" height="505" srcset="http://elliptips.info/wp-content/uploads/2013/11/glances-800x505.png 800w, http://elliptips.info/wp-content/uploads/2013/11/glances-300x189.png 300w, http://elliptips.info/wp-content/uploads/2013/11/glances.png 874w" sizes="(max-width: 800px) 100vw, 800px" title="Guide Debian 7 (partie 7/8) : surveiller votre serveur avec Glances photo" /></p>
+
+<p>Je pense que l’interface parle d’elle même, sachez juste que le code couleur s’interprète de la façon suivante :</p>
+
+<ul>
+  <li><span style="color: #00ff00;">VERT</span> : la statistique est “OK”</li>
+  <li><span style="color: #3366ff;">BLEU</span> : la statistique est “CAREFUL” (à surveiller)</li>
+  <li><span style="color: #ff00ff;">VIOLET</span> : la statistique est “WARNING” (en alerte)</li>
+  <li><span style="color: #ff0000;">ROUGE</span> : la statistique est “CRITICAL” (critique)</li>
+</ul>
+
+<p>L’aide de Glances, accessible en tapant h :</p>
+
+<pre class="lang:default decode:true">a  Classer automatiquement les procel  Show/hide logs
+  c  Classer les processus par CPU%   b  Bytes or bits for network I/O
+  m  Classer les processus par MEM%   w  Suppression des alertes warning
+  p  Classer les processus par ordre ax  Supression de toutes les alertes
+  i  Sort processes by I/O rate       1  Global CPU or per-CPU stats
+  d  Montrer/cacher les IO disques    h  Show/hide this help screen
+  f  Montrer/cacher les statistiques st  View network I/O as combination
+  n  Montrer/cacher IO réseau         u  View cumulative network I/O
+  s  Show/hide sensors stats          q  Quitter Glances (ESC ou Ctrl-C marc
+  y  Show/hide hddtemp stats</pre>
+
+<p>Vous pouvez aussi accéder à une documentation plus complète sur <a href="https://github.com/nicolargo/glances/blob/master/docs/glances-doc.rst" title="La documentation complète de Glances">Github</a>.</p>
+
+<p>Enfin, sachez que Glances dispose d’un client <a href="https://play.google.com/store/apps/details?id=org.jrenner.androidglances" title="Le client Android de Glances">Android</a> et d’un client <a href="https://github.com/spin0us/MetaGlances" title="Le client web de Glances">web</a> (et comme c’est Open Source, rien ne vous empêche de développer le vôtre 🙂 ).</p>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

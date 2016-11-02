@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Ligne de commande et Sublime Text 2 sous OS X</title>
+    <meta name="description" content="Voici une petite astuce pour éditer un ou plusieurs fichiers directement depuis la ligne de commande avec Sublime Text. Cette manipulation se révèle extrêmem...">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/ligne-de-commande-et-sublime-text-2-sous-os-x/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Ligne de commande et Sublime Text 2 sous OS X</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2012-11-26T20:50:35+01:00" itemprop="datePublished">publié le 26/11/2012</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+1 min
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p>Voici une petite astuce pour éditer un ou plusieurs fichiers directement depuis la ligne de commande avec Sublime Text. Cette manipulation se révèle extrêmement pratique si vous avez l’habitude d’utiliser le terminal au lieu du Finder pour naviguer dans votre arborescence de fichiers (plus rapide pour l’édition de fichiers cachés ou non accessibles par défault depuis le Finder).</p>
+
+<h1 id="configuration">Configuration</h1>
+
+<p>Commencez par créer un répertoire bin dans votre home (si ça n’est pas déjà fait) :</p>
+
+<pre class="lang:default decode:true">mkdir ~/bin</pre>
+
+<p>N’oubliez pas d’éditer la variable d’environnement PATH pour y ajouter le dossier bin  (exemple avec ma configuration) :</p>
+
+<pre class="lang:sh decode:true">export PATH=/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/opt/bin:/usr/local/git/bin:~/bin</pre>
+
+<p>On créé un lien symbolique pointant vers le binaire de Sublime Text dans le dossier bin :</p>
+
+<pre class="lang:sh decode:true">ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" ~/bin/subl</pre>
+
+<p>On recharge la configuration pour prendre en compte les changements (dans mon cas, la variable PATH se trouve dans mon .zshrc) :</p>
+
+<pre class="lang:sh decode:true">source .zshrc</pre>
+
+<h1 id="utilisation">Utilisation</h1>
+
+<p>Exemple d’édition d’un fichier :</p>
+
+<pre class="lang:sh decode:true">subl /etc/php.ini</pre>
+
+<p>La liste des commandes (subl –help) :</p>
+
+<pre class="lang:default decode:true crayon-selected">Sublime Text 2 Build 2217
+
+Usage: subl [arguments] [files]         edit the given files
+   or: subl [arguments] [directories]   open the given directories
+   or: subl [arguments] -               edit stdin
+
+Arguments:
+  --project &lt;project&gt;: Load the given project
+  --command &lt;command&gt;: Run the given command
+  -n or --new-window:  Open a new window
+  -a or --add:         Add folders to the current window
+  -w or --wait:        Wait for the files to be closed before returning
+  -b or --background:  Don't activate the application
+  -s or --stay:        Keep the application activated after closing the file
+  -h or --help:        Show help (this message) and exit
+  -v or --version:     Show version and exit
+
+--wait is implied if reading from stdin. Use --stay to not switch back
+to the terminal when a file is closed (only relevant if waiting for a file).
+
+Filenames may be given a :line or :line:column suffix to open at a specific
+location.</pre>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

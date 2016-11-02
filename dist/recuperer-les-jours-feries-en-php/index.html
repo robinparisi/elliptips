@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Récupérer les jours fériés en PHP</title>
+    <meta name="description" content="Récemment, il m’a fallu récupérer une liste des jours fériés grâce à PHP. Comme vous le savez probablement, nous disposons en France de 11 jours fériés : la ...">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/recuperer-les-jours-feries-en-php/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Récupérer les jours fériés en PHP</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2012-01-20T18:33:09+01:00" itemprop="datePublished">publié le 20/01/2012</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+1 min
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p style="text-align: justify;">
+  Récemment, il m’a fallu récupérer une liste des <strong>jours fériés grâce à PHP</strong>. Comme vous le savez probablement, nous disposons en France de 11 jours fériés : la date de 8 d’entre eux est très facile à déterminer puisque celle-ci ne change pas au cours des ans. Mais en ce qui concerne les 3 derniers, ceux-ci sont basés sur le jour de Pâque qui je cite Wikipedia «est célébré le dimanche après le 14e jour du premier mois lunaire du printemps, donc le dimanche après la première pleine lune advenant pendant ou après l&#8217;équinoxe de printemps». Bref, après quelques recherches, je suis tombé sur une fonction PHP bien sympathique qui permet de retourner un timestamp UNIX pour Pâque, à minuit pour une année donnée : <span style="color: #339966;"><strong>easter_date()</strong></span>.
+</p>
+
+<p style="text-align: justify;">
+  Et comme bien souvent sur <strong>php.net</strong>, la réponse à ma question était déjà présente dans l’un des commentaires. Voici donc la fonction qui vous retournera un tableau des jours fériés en France, au format timestamp UNIX, et ce pour une année donnée (en remerciant l’auteur de cette fonction).
+</p>
+
+<pre class="brush:php ">&lt;?php
+/**
+ * Cette fonction retourne un tableau de timestamp correspondant
+ * aux jours fériés en France pour une année donnée.
+*/
+function getHolidays($year = null)
+{
+  if ($year === null)
+  {
+    $year = intval(date('Y'));
+  }
+
+  $easterDate  = easter_date($year);
+  $easterDay   = date('j', $easterDate);
+  $easterMonth = date('n', $easterDate);
+  $easterYear   = date('Y', $easterDate);
+
+  $holidays = array(
+    // Dates fixes
+    mktime(0, 0, 0, 1,  1,  $year),  // 1er janvier
+    mktime(0, 0, 0, 5,  1,  $year),  // Fête du travail
+    mktime(0, 0, 0, 5,  8,  $year),  // Victoire des alliés
+    mktime(0, 0, 0, 7,  14, $year),  // Fête nationale
+    mktime(0, 0, 0, 8,  15, $year),  // Assomption
+    mktime(0, 0, 0, 11, 1,  $year),  // Toussaint
+    mktime(0, 0, 0, 11, 11, $year),  // Armistice
+    mktime(0, 0, 0, 12, 25, $year),  // Noel
+
+    // Dates variables
+    mktime(0, 0, 0, $easterMonth, $easterDay + 1,  $easterYear),
+    mktime(0, 0, 0, $easterMonth, $easterDay + 39, $easterYear),
+    mktime(0, 0, 0, $easterMonth, $easterDay + 50, $easterYear),
+  );
+
+  sort($holidays);
+
+  return $holidays;
+}
+?&gt;</pre>
+
+<p class="brush:php">
+  Source : <a title="Fonction easter_date() sur php.net" href="http://php.net/manual/fr/function.easter-date.php">http://php.net/manual/fr/function.easter-date.php</a>
+</p>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

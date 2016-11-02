@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Guide Debian 7 (partie 3/8) : envoyer des mails depuis la ligne de commande</title>
+    <meta name="description" content="Cet article fait partie d’une série de billets portant sur la mise en place d’un serveur sous Debian Wheezy (voir le sommaire).">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/guide-debian-7-envoi-de-mails-ligne-de-commande/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Guide Debian 7 (partie 3/8) : envoyer des mails depuis la ligne de commande</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2013-06-23T22:45:00+02:00" itemprop="datePublished">publié le 23/06/2013</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+6 mins
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p>Cet article fait partie d’une série de billets portant sur la mise en place d’un serveur sous Debian Wheezy (<a href="http://elliptips.info/guide-sur-linstallation-dun-serveur-sous-debian-7-wheezy/" title="guide debian wheezy sommaire">voir le sommaire</a>).</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p><span style="font-size: 13px;">Le but de cette partie est de permettre l’envoi de mails depuis la ligne de commande.</span></p>
+
+<p>Ainsi, je ne vous parlerai pas ici de l’installation d’un serveur de mails complet, car cette étape serait bien trop longue et fastidieuse étant donné le résultat attendu.</p>
+
+<h2 id="comment-a-marche">Comment ça marche ?</h2>
+
+<p>Nous allons utiliser pour cela un client SMTP léger, dont le rôle sera d’envoyer les e-mails en passant par un relai SMTP. Dans la majorité des cas, ce relai sera mis à votre disposition par votre prestataire.</p>
+
+<p>Ce type d’envoi sera particulièrement utile pour les utilitaires capables de générer des rapports (fail2ban, cron-apt, …) de leur activité et de les envoyer par mail à l’administrateur du serveur, c’est à dire vous.</p>
+
+<h2 id="mon-prestataire-ne-propose-pas-de-relai-smtp">Mon prestataire ne propose pas de relai SMTP</h2>
+
+<p>Selon le prestataire que vous aurez retenu, vous vous retrouverez généralement face à deux cas de figure :</p>
+
+<ul>
+  <li>le prestataire dispose d’un STMP en interne pour l’envoi de mail depuis ses serveurs (parfois, la distribution est préconfigurée pour utiliser ce SMTP (ex: Ikoula)</li>
+  <li>le prestataire ne dispose pas d’un SMTP en interne (ex: Dedibox). Dans ce cas, nous allons utiliser un autre relai SMTP</li>
+</ul>
+
+<h2 id="testons-lenvoi-de-mail"><strong>Testons l’envoi de mail</strong></h2>
+
+<p>Dans un premier temps, nous allons devoir tester l’envoi de mail car il est possible que votre prestataire l’ait déjà configuré pour vous (chez certains prestataires, les fichiers de confs sont préremplis à l’installation de la distribution) :</p>
+
+<p>Lancer la ligne suivante en y insérant votre adresse mail (il est possible que le mail arrive dans vos spams) :</p>
+
+<pre class="lang:sh decode:true">echo "Mail envoyé le $(date)" | mail -s "Test envoi de mail depuis $HOST" votre_adresse@exemple.com</pre>
+
+<p>À partir d’ici, si l’envoi fonctionne, nul besoin d’aller plus loin. Dans le cas contraire, il va nous falloir installer ssmtp. Ne paniquez pas, la configuration est enfantine.</p>
+
+<h2 id="mthode-ssmtp-passer-par-le-smtp-de-votre-prestataire">Méthode ssmtp (passer par le SMTP de votre prestataire)</h2>
+
+<p>[Source : <a href="http://doc.ubuntu-fr.org/ssmtp" title="ssmtp">http://doc.ubuntu-fr.org/ssmtp</a>]</p>
+
+<p>Nous allons commencer par installer le client ssmtp :</p>
+
+<pre class="lang:sh decode:true">aptitude install ssmtp</pre>
+
+<p>Pour tout envoi de mail, un système UNIX tentera de faire appel à la commande sendmail (ceci pour une raison historique). La commande sendmail peut être founie par l’utilitaire sendmail, postfix, ou dans notre cas, par ssmtp.</p>
+
+<pre class="lang:sh decode:true">whereis sendmail</pre>
+
+<p>Si vous obtenez un retour semblable à l’exemple ci-dessous, c’est que la commande sendmail se trouve sur votre sytème.</p>
+
+<pre class="lang:default decode:true">sendmail: /usr/sbin/sendmail /usr/lib/sendmail /usr/lib64/sendmail /usr/share/man/man8/sendmail.8.gz</pre>
+
+<p>Il faut maintenant vérifier que ssmtp est l’utilitaire qui se cache derrière cette commande :</p>
+
+<pre class="lang:sh decode:true">ls -la /usr/sbin/sendmail</pre>
+
+<p>La réponse attendue :</p>
+
+<pre class="lang:default decode:true">lrwxrwxrwx 1 root root 5 20 déc.   2010 /usr/sbin/sendmail -&gt; ssmtp*</pre>
+
+<p>Ici, l’on voit que lors d’un appel à sendmail, le sytème appellera en fait le client ssmtp au travers d’un lien symbolique.</p>
+
+<h3 id="configuration-de-ssmtp"><strong>Configuration de ssmtp</strong></h3>
+
+<pre class="lang:sh decode:true">vim /etc/ssmtp/ssmtp.conf</pre>
+
+<p>Afin d’être le plus clair possible, je vous place ici la configuration de mon serveur ( hébergé chez Ikoula). À vous de l’adapter avec les informations de votre prestataire.</p>
+
+<pre class="lang:default mark:4,11 decode:true"># The place where the mail goes. The actual machine name is required no 
+# MX records are consulted. Commonly mailhosts are named mail.domain.com
+
+mailhub=mail.ikoula.fr
+
+# Where will the mail seem to come from?
+#rewriteDomain=
+
+# The full hostname
+
+hostname=ik34.ikoula.com
+
+# Are users allowed to set their own From: address?
+# YES - Allow the user to specify their own From: address
+# NO - Use the system generated From: address
+#FromLineOverride=YES</pre>
+
+<p>Le point à noter est que l’utilisation du SMTP de votre prestataire ne semble pas requérir d’authentification. Ne vous y trompez pas, l’envoi vous est autorisé, car effectué depuis une de leur machine, c’est pourquoi il vous serait impossible d’utiliser leur serveur SMTP depuis une machine située à l’extérieur du réseau sans vous identifier au préalable.</p>
+
+<p>À ce stade, testez de nouveau l’envoi de mail grâce à la commande donnée en début de ce chapitre. Si vous obtenez une erreur, passez à la section suivante.</p>
+
+<h3 id="un-cas-particulier-lenvoi-de-mail-depuis-root">Un cas particulier, l’envoi de mail depuis root</h3>
+
+<p>Vous l’aurez compris, l’envoi de mail jusque ici se fait en tant que root. Chez certains prestataires, il est possible que l’envoi depuis root soit refusé.</p>
+
+<p>Un exemple de refus :</p>
+
+<pre class="lang:default decode:true">send-mail: RCPT TO:&lt;parisi.robin@gmail.com&gt; (554 5.7.1 &lt;root@ik34.ikoula.com&gt;: Sender address rejected: Access denied)</pre>
+
+<p>Nous allons pour cela ruser en modifiant l’adresse d’expédition du compte root.</p>
+
+<pre class="lang:sh decode:true">vim /etc/ssmtp/revaliases</pre>
+
+<p>Je rajoute alors la ligne suivante :</p>
+
+<pre class="lang:default decode:true">root:homer@mail.ikoula.com</pre>
+
+<p>Notez que l’utilisateur n’a aucunement besoin d’exister sur votre serveur. En clair, vous pouvez mettre  à peu près n’importe quoi (cette donnée sera utilisée pour le champ from), cela pour la simple et bonne raison que nous n’attendons aucune réponse aux mails qui seront envoyés. De l’envoi et simplement de l’envoi, souvenez-vous !</p>
+
+<p>À partir de ce point, les futurs paquets que vous installerez devraient être capables d’envoyer des mails s’ils sont lancés avec les privilèges du compte root. N’hésitez pas non plus à utiliser la commande mail au sein de vos scripts, pour être averti par exemple de la bonne exécution d’une tâche.</p>
+
+<h2 id="mthode-exim4-pas-de-smtp-chez-votre-prestataire"><strong>Méthode exim4 (pas de SMTP chez votre prestataire)</strong></h2>
+
+<p>Dans ce cas, nous allons utiliser un compte mail qui nous permettra de gérer l’envoi. Deux solutions s’offrent à vous :</p>
+
+<ul>
+  <li><span style="line-height: 13px;">utiliser un compte type gmail, outlook, etc…</span></li>
+  <li>créer un compte mail chez votre prestataire de nom de domaine</li>
+</ul>
+
+<p>En ce qui me concerne, j’ai pris l’habitude de créer une adresse dédiée à l’envoi de mail depuis le serveur du type ne-pas-repondre@mondomaine.fr.</p>
+
+<p>Je vous laisse vous renseigner sur la façon de créer une boîte mail avec votre domaine.</p>
+
+<p>Nous allons maintenant configurer exim4 pour envoyer les mails en passant par votre compte :</p>
+
+<pre class="lang:sh decode:true">vim /etc/exim4/update-exim4.conf.conf</pre>
+
+<p>À adapter selon vos informations de connexion :</p>
+
+<pre>dc_eximconfig_configtype='satellite'
+dc_other_hostnames=''
+dc_local_interfaces='127.0.0.1'
+dc_readhost='mon-domaine.com'
+dc_relay_domains=''
+dc_minimaldns='false'
+dc_relay_nets=''
+dc_smarthost='mail.gandi.net:587'
+CFILEMODE='644'
+dc_use_split_config='false'
+dc_hide_mailname='true'
+dc_mailname_in_oh='true'
+dc_localdelivery='mail_spool'</pre>
+
+<p>Dans mon cas, je passe par le SMTP de Gandi (mail.gandi.net sur le port 587). Il vous faudra donc trouver ces informations pour votre prestataire.</p>
+
+<p>Dans /etc/exim4/passwd.client</p>
+
+<pre>*:NOM-UTILISATEUR@DOMAINE.FR:MOT-DE-PASSE-DU-COMPTE</pre>
+
+<p>Cette ligne nous permet de nous identifier avec notre compte auprès du serveur SMTP.</p>
+
+<p>Puis l’on termine en rechargeant la configuration d’exim4 :</p>
+
+<pre>update-exim4.conf</pre>
+
+<p>Arrivé à ce point, vous devriez être capable d’envoyer des mails grâce à la commande utilisée plus haut.</p>
+
+<h2 id="limites-d8217envoi">Limites d’envoi</h2>
+
+<p>Il est important de comprendre que ces techniques permettent un envoi de mail “modéré” depuis la ligne de commande (ou depuis un script PHP, Python, Ruby, etc…). Au-delà d’un certain quota, le SMTP refusera de transmettre vos emails. Pour de l’envoi de masse (newsletter) et pour éviter de finir dans les spams, préférez une solution spécialisée (Mailchimp propose par exemple l’envoi de newsletter gratuitement jusqu’à 2000 inscrits).</p>
+
+<p> </p>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Pimp mon Apache</title>
+    <meta name="description" content="Si vous avez activé l’option Indexes sur votre apache, ce que je vous déconseille de faire dans la plupart des cas, vous aurez sans doute remarqué que l’inte...">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/pimp-mon-apache/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Pimp mon Apache</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2011-07-21T17:33:18+02:00" itemprop="datePublished">publié le 21/07/2011</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+2 mins
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p>Si vous avez activé l’option Indexes sur votre apache, ce que je vous déconseille de faire dans la plupart des cas, vous aurez sans doute remarqué que l’interface de présentation des fichiers est un poil austère.</p>
+
+<p> </p>
+
+<div id="attachment_683" style="width: 310px" class="wp-caption aligncenter">
+  <a href="http://elliptips.info/wp-content/uploads/2011/07/Capture-d_ecran-2011-07-21-a-17.14.51.jpg"><img class="size-medium wp-image-683" title="index apache " src="http://elliptips.info/wp-content/uploads/2011/07/Capture-d_ecran-2011-07-21-a-17.14.51-300x209.jpg" alt="Capture d ecran 2011 07 21 a 17.14.51 300x209 Pimp mon Apache" width="300" height="209" /></a>
+  
+  <p class="wp-caption-text">
+    Il faut l’avouer, niveau user friendly, c’est pas génial
+  </p>
+</div>
+
+<p> </p>
+
+<p>Heureusement, h5ai arrive à la rescousse à grand coup de HTML5, CSS3 et Jquery pour redonner à cette vilaine page un style, disons le, plus actuel.</p>
+
+<p> </p>
+
+<div id="attachment_684" style="width: 310px" class="wp-caption aligncenter">
+  <a href="http://elliptips.info/wp-content/uploads/2011/07/Capture-d_ecran-2011-07-21-a-17.14.32.jpg"><img class="size-medium wp-image-684" title="index apache h5ai" src="http://elliptips.info/wp-content/uploads/2011/07/Capture-d_ecran-2011-07-21-a-17.14.32-300x136.jpg" alt="Capture d ecran 2011 07 21 a 17.14.32 300x136 Pimp mon Apache" width="300" height="136" /></a>
+  
+  <p class="wp-caption-text">
+    La même avec h5ai
+  </p>
+</div>
+
+<p>##</p>
+
+<h2 id="installation-h5ai">Installation h5ai</h2>
+
+<p>Pour cela rien de plus simple, on commence par télécharger l’archive sur <a href="http://larsjung.de/h5ai/" title="h5ai download page">le site du développeur</a>.</p>
+
+<p>Une fois l’archive téléchargée, on récupère le dossier h5ai dans src que l’on place à la racine de son répertoire web.</p>
+
+<p>On ajoute ensuite le contenu du fichier dot.htaccess dans le .htaccess à la racine du répertoire que l’on souhaite customiser.</p>
+
+<p>Par exemple je souhaite appliquer le style au répertoire test contenu dans mon htdocs :</p>
+
+<p> </p>
+
+<div id="attachment_700" style="width: 310px" class="wp-caption aligncenter">
+  <a href="http://elliptips.info/wp-content/uploads/2011/07/Capture-d_ecran-2011-07-21-a-18.43.49.jpg"><img class="size-medium wp-image-700" title="htaccess" src="http://elliptips.info/wp-content/uploads/2011/07/Capture-d_ecran-2011-07-21-a-18.43.49-300x33.jpg" alt="Capture d ecran 2011 07 21 a 18.43.49 300x33 Pimp mon Apache" width="300" height="33" /></a>
+  
+  <p class="wp-caption-text">
+    On créé ou édite le .htaccess
+  </p>
+</div>
+
+<p> </p>
+
+<p>Test en se rendant sur http://localhost/test</p>
+
+<p> </p>
+
+<div id="attachment_686" style="width: 310px" class="wp-caption aligncenter">
+  <a href="http://elliptips.info/wp-content/uploads/2011/07/Capture-d_ecran-2011-07-21-a-17.24.05.jpg"><img class="size-medium wp-image-686" title="h5ai local" src="http://elliptips.info/wp-content/uploads/2011/07/Capture-d_ecran-2011-07-21-a-17.24.05-300x82.jpg" alt="Capture d ecran 2011 07 21 a 17.24.05 300x82 Pimp mon Apache" width="300" height="82" /></a>
+  
+  <p class="wp-caption-text">
+    Ca marche !
+  </p>
+</div>
+
+<p> </p>
+
+<p><span style="text-decoration: underline;">Note</span> : pour que cela fonctionne, la directive AllowOveride doit être à all</p>
+
+<pre class="brush:shell">AllowOverride All</pre>
+
+<p class="brush:shell">
+  N’oubliez pas non plus l’option +Indexes, le mieux étant de la placer dans le .htaccess pour que seul le répertoire voulu puisse être indexé (il suffit d’ailleurs de la décommenter dans le dot.haccess).
+</p>
+
+<p class="brush:shell">
+  Voilà, c’est quand même plus sympa pour créer un petit serveur de partage rapidement non ?
+</p>
+
+<p class="brush:shell" style="text-align: right;">
+  [<a title="La ferme du web" href="http://www.lafermeduweb.net/billet/h5ai-votre-page-index-apache-modifiee-avec-style-1153.html">source : la ferme du web</a>]
+</p>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Guide Debian 7 (partie 4/8) : gérer le trafic entrant et sortant avec Iptables</title>
+    <meta name="description" content="Cet article fait partie d’une série de billets portant sur la mise en place d’un serveur sous Debian Wheezy (sommaire du guide Debian Wheezy).">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/guide-debian-7-gerer-le-trafic-entrant-et-sortant-avec-iptables/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Guide Debian 7 (partie 4/8) : gérer le trafic entrant et sortant avec Iptables</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2013-07-04T20:49:48+02:00" itemprop="datePublished">publié le 04/07/2013</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+3 mins
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p>Cet article fait partie d’une série de billets portant sur la mise en place d’un serveur sous Debian Wheezy (<a href="http://elliptips.info/guide-sur-linstallation-dun-serveur-sous-debian-7-wheezy/" title="Guide Debian Wheezy">sommaire du guide Debian Wheezy</a>).</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Nous avons vu dans un article précédent comment sécuriser la porte d’entrée de notre serveur, c’est-à-dire l’accès SSH. C’est un début, mais n’oubliez pas que les fenêtres, elles, sont toujours ouvertes…</p>
+
+<p>Dans l’état actuel, tout le trafic devrait être autorisé en <strong>entrée et sortie sur votre serveur</strong> (j’utilise le conditionnel, car parfois, les prestataires mettent à disposition un pare-feu intermédiaire).</p>
+
+<p>Pour réguler ces entrées/sorties, nous allons utiliser <a href="http://fr.wikipedia.org/wiki/Iptables" title="Iptables">Iptables</a>, <strong>un logiciel qui permet de configurer les règles du pare-feu</strong>, le tout en ligne de commandes. Il faut savoir que les règles Iptables sont réinitialisées à chaque reboot du serveur. La meilleure solution consiste donc à les placer dans un petit script qui s’occupera de mettre en place vos règles au démarrage de la machine.</p>
+
+<h2 id="le-script">Le script</h2>
+
+<p>Bonne nouvelle, nul besoin de réinventer la roue, car il existe sur le net une multitude de scripts pour gérer le firewall. Nous allons utiliser le script de Nicolargo (qui au passage tient un excellent blog: <a href="http://blog.nicolargo.com/">http://blog.nicolargo.com/</a> ).</p>
+
+<p>J’ai forké le script pour mes propres besoins et pour être sûr que celui-ci reste accessible. On commence donc par le récupérer depuis Github :</p>
+
+<pre class="lang:sh decode:true">wget --no-check-certificate https://raw.github.com/robinparisi/debian-scripts/master/firewall.sh
+mv firewall.sh /etc/init.d/firewall.sh</pre>
+
+<p>On rend le script exécutable :</p>
+
+<pre>chmod +x /etc/init.d/firewall.sh</pre>
+
+<h2 id="configuration">Configuration</h2>
+
+<pre>vim /etc/init.d/firewall.sh</pre>
+
+<p>La configuration du script est rapide :</p>
+
+<pre># Services that the system will offer to the network
+TCP_SERVICES="22" # SSH 
+UDP_SERVICES=""
+# Services the system will use from the network
+REMOTE_TCP_SERVICES="80 443 25" # web browsing
+REMOTE_UDP_SERVICES="53" # DNS
+# FTP backups 
+# Allow backups to an external FTP
+FTP_BACKUPS=""</pre>
+
+<p><span style="color: #ff0000;">Attention : le port SSH est ici le 22, mais n’oubliez pas que nous l’avons changé. Adaptez donc la conf au port choisi !</span></p>
+
+<p>Pour l’envoi de mail, il faut ajouter le port 25 dans REMOTE_TCP_SERVICES.</p>
+
+<p>Il est possible de tester la configuration en appliquant les règles pendant 30 secondes pour s’assurer que tout va bien :</p>
+
+<pre class="lang:sh decode:true">/etc/init.d/firewall.sh test</pre>
+
+<p>Essayez de vous reconnecter au serveur avec SSH durant ce laps de temps. Si tout se passe bien, vous pouvez alors activer les règles en lançant la commande suivante :</p>
+
+<pre>/etc/init.d/firewall.sh start</pre>
+
+<p>Si un jour vous avez besoin d’effacer les règles (tout autoriser en entrée et sortie), lancez la commande suivante :</p>
+
+<pre>/etc/init.d/firewall.sh clear</pre>
+
+<p><span style="color: #ff0000;">Warning !!! : ne lancez jamais la commande stop sur une connexion distante, car elle aurait pour effet de couper totalement l’accès au serveur (refuser tout le trafic entrant). </span></p>
+
+<h2 id="ajouter-le-script-au-dmarrage">Ajouter le script au démarrage</h2>
+
+<pre class="lang:default decode:true">update-rc.d firewall.sh defaults</pre>
+
+<p>pour l’enlever  :</p>
+
+<pre class="lang:sh decode:true">update-rc.d -f firewall.sh remove</pre>
+
+<h2 id="pour-aller-plus-loin">Pour aller plus loin</h2>
+
+<p>Il faut l’avouer, ce genre de script est bien pratique, mais il ne vous dispense pas de comprendre les règles Iptables qui s’appliquent sur votre serveur.</p>
+
+<p>Pour rappel, vous pouvez obtenir à tout moment la liste des règles grâce à la commande suivante :</p>
+
+<pre class="lang:sh decode:true">iptables -L</pre>
+
+<p>Renseignez-vous sur le sujet, et surtout, évitez à tout prix de faire des copier/coller de règles en provenance d’internet que vous ne comprenez pas, car c’est en général le meilleur moyen pour se retrouver sur le pas de la porte à tambouriner comme un couillon après s’être enfermé dehors (j’en connais qui se remémorent des soirées sympathiques :P).</p>
+
+<h2 id="j8217ai-bloqu-ma-connexion-ssh8230">J’ai bloqué ma connexion SSH…</h2>
+
+<p>Et voilà, on fait l’idiot dans le fond depuis le début des explications… mais maintenant, qui a l’air malin ?! 😛</p>
+
+<p>Ne vous inquiétez pas, tout n’est pas perdu 🙂</p>
+
+<p>Deux cas peuvent se présenter :</p>
+
+<ul>
+  <li>Vous avez joué avec des règles Iptables mais sans éditer le script. Dans ce cas un reboot du serveur depuis son interface suffira à rétablir les bonnes règles.</li>
+  <li>Vous avez édité ou mal configuré le script puis appliqué directement les règles. Ici, il faudra passer par la console de récupération de votre prestataire. En montant la partition de votre serveur, vous serez capable d’éditer le script puis de rebooter le serveur.</li>
+</ul>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>

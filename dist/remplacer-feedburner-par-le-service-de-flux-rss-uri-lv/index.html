@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Remplacer FeedBurner par le service de flux RSS URI.LV</title>
+    <meta name="description" content="Officiellement, la fin de FeedBurner, le service de flux RSS proposé par Google n’a pas encore été annoncée mais dans les faits, nul doute que celle-ci ne sa...">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="canonical" href="http://elliptips.info/remplacer-feedburner-par-le-service-de-flux-rss-uri-lv/">
+    <link rel="alternate" type="application/rss+xml" title="Elliptips" href="/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://file.myfontastic.com/A2MgA9Cd47cENMsNJcc2Gk/icons.css" rel="stylesheet">
+    
+    
+</head>
+
+
+  <body>
+
+    <header class="header" role="banner">
+    <div class="container">
+        <a class="logo" href="/">Elliptips</a>
+
+        <nav class="nav">
+            <a href="">A propos</a>
+            <a href="https://twitter.com/robin_parisi" target="_blank">Twitter</a>
+            <a href="https://github.com/robinparisi" target="_blank">Github</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <div class="post-header__wrapper container">
+            <h1 class="post-title" itemprop="name headline">Remplacer FeedBurner par le service de flux RSS URI.LV</h1>
+            <div class="post-context">
+                <div><i class="post-metaIcon icon-calendar"></i><span class="post-metaItem"><time datetime="2013-03-22T16:53:42+01:00" itemprop="datePublished">publié le 22/03/2013</time></span></div>
+                <div><i class="post-metaIcon icon-clock"></i><span class="post-metaItem">Temps de lecture : 
+
+2 mins
+
+</span></div>
+                <div><i class="post-metaIcon icon-pencil"></i><span class="post-metaItem"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Robin</span></span></span></div>
+                <div class="post-shareBox">
+                    Partager :
+                    <a href="#" title="Partager sur Twitter"><i class="icon-twitter color-twitter"></i></a>
+                    <a href="#" title="Partager sur Facebook"><i class="icon-facebook color-facebook"></i></a>
+                    <a href="#" title="Partager sur Google+"><i class="icon-google-plus color-google"></i></a>
+                    <a href="#" title="Partager par e-mail+"><i class="icon-envelope color-mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            <p>Officiellement, la <strong>fin de FeedBurner</strong>, le service de <strong>flux RSS proposé par Google</strong> n’a pas encore été annoncée mais dans les faits, nul doute que celle-ci ne saurait tarder.</p>
+
+<p>Maintenant, si vous utilisiez le service sur votre blog ou votre site, il va vous falloir passer à une <strong>solution alternative</strong>. En ce qui me concerne, j’ai choisi de passer à <a href="http://uri.lv/">URI.LV</a>, un service proposé par Maxime Valette dont vous connaissez probablement le site VDM.</p>
+
+<p>Vous y retrouverez les fonctionnalités qui ont su faire la notoriété de FeedBurner :</p>
+
+<ul>
+  <li>un système de statistiques</li>
+  <li> le gestion du protocole PubSubHubbub qui permet la mise à jour des flux en temps réel</li>
+  <li> l’abonnement par newsletter</li>
+  <li> le cache des fichiers RSS</li>
+</ul>
+
+<p><img class="aligncenter size-large wp-image-2066" alt="Capture d ecran 2013 03 22 a 15.39.17 800x114 Remplacer FeedBurner par le service de flux RSS URI.LV" src="http://elliptips.info/wp-content/uploads/2013/03/Capture-d_ecran-2013-03-22-a-15.39.17-800x114.png" width="800" height="114" title="Remplacer FeedBurner par le service de flux RSS URI.LV photo" /></p>
+
+<p>La mise en place est enfantine et contrairement à FeedBurner, ce sera <strong>l’adresse de votre flux</strong> qui apparaîtra dans le lecteur de vos abonnés (grâce à un système de redirection). Ce point est essentiel puisqu’il <strong>supprimera toute dépendance</strong> vis-a-vis du service et il vous suffira alors de supprimer la redirection pour utiliser à nouveau le système natif de votre blog.</p>
+
+<p><a href="http://uri.lv/feeds/migrate">La procédure de migration</a> se déroule en 3 étapes :</p>
+
+<ul>
+  <li>inscription et création de votre flux sur URI.LV</li>
+  <li>redirection du flux natif (http://votresite.fr/feed) vers celui du service URI.LV</li>
+  <li>désactivation du flux sur feedburner et redirection vers le flux natif de votre blog (c’est cette étape qui vous permettra de ne pas perdre d’abonnés en cours de route)</li>
+</ul>
+
+<p>Pour ceux qui utilisent <strong>Nginx</strong>, voici un exemple de redirection à mettre en place dans votre fichier de conf :</p>
+
+<pre class="lang:default decode:true">if ($http_user_agent !~ (FeedValidator|uri\.lv)){
+    rewrite ^/feed$ http://feeds.uri.lv/elliptips redirect;
+}</pre>
+
+<p>Je pense que la fermeture prochaine de Feedburner sera une bonne leçon pour tous ceux qui considèrent les services du géant Google comme éternels. Ne vous méprenez pas sur mes intentions : j’utilise leurs produits au quotidien (trop à mon goût) et je les trouve très pratiques.</p>
+
+<p>Néanmoins, il est judicieux comme pour tout service externalisé d’être conscient de votre dépendance et des conséquences qu’un arrêt brutal de celui-ci pourrait entraîner.</p>
+
+<p>C’est une problématique qui revient sans fin et la chute prochaine de Reader en est l’exemple parfait : beaucoup de services étaient basés sur Reader et tandis que certains doivent s’en mordre les doigts, d’autres sauront certainement tirer profit de cette ouverture (coucou Feedly).</p>
+
+        </div>
+    </div>
+
+    
+</article>
+
+      </div>
+    </main>
+
+    <div class="container">
+    <footer class="footer txtcenter">
+        Sauf mention spéciale, le contenu de ce site est distribué sous licence <a href="#">CC BY-NC-SA 3.0</a>
+    </footer>
+</div>
+
+
+  </body>
+
+</html>
